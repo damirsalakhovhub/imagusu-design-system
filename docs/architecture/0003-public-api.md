@@ -4,7 +4,7 @@ Status: accepted
 
 ## Decision
 
-Public API includes Ruby initializers, rendered semantics and DOM order, accepted attributes, component names, future CSS variables, assets, configuration, and generators. Before 1.0, breaking changes ship only in minor releases with migration notes. Patch releases remain backward compatible.
+Public API includes Ruby initializers, Rails FormBuilder integration, rendered semantics and DOM order, accepted attributes, component names, class and state hooks, future CSS variables, assets, configuration, and generators. Before 1.0, breaking changes ship only in minor releases with migration notes. Patch releases remain backward compatible.
 
 ## Consequences
 

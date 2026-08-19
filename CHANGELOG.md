@@ -4,6 +4,11 @@ All notable changes follow [Keep a Changelog](https://keepachangelog.com/en/1.1.
 
 ## [Unreleased]
 
+### Added
+
+- Headless Field, TextField, TextArea, Select, Checkbox, and RadioGroup components.
+- Rails FormBuilder binding, validation messages, ARIA descriptions, previews, and stable styling hooks.
+
 ## [0.1.0] - 2026-08-19
 
 ### Added

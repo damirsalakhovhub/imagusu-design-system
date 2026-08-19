@@ -1,0 +1,14 @@
+<%= tag.fieldset(**fieldset_attributes) do %>
+  <%= tag.legend(class: "ids-radio-group__legend") do %>
+    <%= label %><% if @label_suffix %> <span class="ids-field__label-suffix"><%= @label_suffix %></span><% end %>
+  <% end %>
+  <% if hint %>
+    <div id="<%= hint_id %>" class="ids-field__hint"><%= hint %></div>
+  <% end %>
+  <% if errors.any? %>
+    <div id="<%= error_id %>" class="ids-field__error"><%= error_text %></div>
+  <% end %>
+  <div class="ids-radio-group__options">
+    <%= radio_buttons %>
+  </div>
+<% end %>

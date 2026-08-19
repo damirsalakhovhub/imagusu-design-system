@@ -19,3 +19,17 @@ component = Imagusu::DesignSystem::ButtonComponent.new(type: :submit).with_conte
 rendered = component.render_in(view_context)
 
 abort "packaged component did not render" unless rendered.include?(%(<button type="submit">Package smoke</button>))
+
+form = ActionView::Helpers::FormBuilder.new(:profile, nil, view_context, {})
+field = Imagusu::DesignSystem::TextFieldComponent.new(
+  form: form,
+  method: :email,
+  type: :email,
+  label: "Email",
+  errors: false
+)
+rendered_field = field.render_in(view_context)
+
+unless rendered_field.include?(%(<input)) && rendered_field.include?(%(type="email")) && rendered_field.include?(%(name="profile[email]"))
+  abort "packaged form component did not render"
+end

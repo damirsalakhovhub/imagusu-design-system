@@ -1,0 +1,7 @@
+<%= form_with url: "#", scope: :profile do |form| %>
+  <%= render Imagusu::DesignSystem::TextFieldComponent.new(form: form, method: :email, label: "Email", value: "ada@example.com", disabled: true) %>
+  <%= render Imagusu::DesignSystem::TextAreaComponent.new(form: form, method: :bio, label: "Biography", value: "Existing biography", disabled: true) %>
+  <%= render Imagusu::DesignSystem::SelectComponent.new(form: form, method: :role, label: "Role", options: [["Member", "member"], ["Administrator", "admin"]], selected: "member", disabled: true) %>
+  <%= render Imagusu::DesignSystem::CheckboxComponent.new(form: form, method: :terms, label: "Accept terms", checked: true, disabled: true) %>
+  <%= render Imagusu::DesignSystem::RadioGroupComponent.new(form: form, method: :frequency, label: "Notifications", options: [["Daily", "daily"], ["Weekly", "weekly"]], selected: "weekly", disabled: true) %>
+<% end %>

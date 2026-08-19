@@ -53,6 +53,34 @@ Then run `bundle install`. The Rails engine loads components automatically. The 
 
 Consumers own the accessible name and page-level behavior. Automated component tests do not replace keyboard and assistive-technology testing in the consuming application.
 
+## Form controls
+
+Form components use the Rails `FormBuilder`, so nested scopes, IDs, names, values, validation rerenders, and hidden checkbox/radio inputs retain native Rails behavior.
+
+```erb
+<%= form_with model: @profile do |form| %>
+  <%= render Imagusu::DesignSystem::TextFieldComponent.new(
+    form: form,
+    method: :email,
+    type: :email,
+    label: "Email",
+    label_suffix: "(required)",
+    hint: "Used for account notifications",
+    required: true
+  ) %>
+
+  <%= render Imagusu::DesignSystem::SelectComponent.new(
+    form: form,
+    method: :role,
+    label: "Role",
+    prompt: "Choose a role",
+    options: [["Member", "member"], ["Administrator", "admin"]]
+  ) %>
+<% end %>
+```
+
+Available primitives: `FieldComponent`, `TextFieldComponent`, `TextAreaComponent`, `SelectComponent`, `CheckboxComponent`, and `RadioGroupComponent`. They ship semantic HTML and stable `ids-*` class hooks but no CSS or JavaScript. See [form control contracts](docs/components/form-controls.md).
+
 ## Development
 
 ```sh
