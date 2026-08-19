@@ -6,27 +6,26 @@ Automated controls are the source of truth for mechanically verifiable IDS invar
 
 | Invariant | Command | CI | Limitation |
 | --- | --- | --- | --- |
-| No unapproved runtime gem, enumerated frontend manifest/build config, CSS/JavaScript, or new legacy component file | `ruby script/verify-policy` | `policy` job | The lists are finite and the script cannot protect a change that weakens itself; branch review must remain required |
-| Rendered component behavior | `bundle exec rake test` | Compatibility matrix | Coverage is limited to written cases and the transitional renderer |
+| No unapproved runtime or forbidden renderer gem, `app/components`, enumerated frontend manifest/build config, CSS, or JavaScript | `ruby script/verify-policy` | `policy` job | The lists are finite and the script cannot protect a change that weakens itself; branch review must remain required |
+| Button/TextField strict locals, rendered semantics, relationships, escaping, and gallery route | `bundle exec rake test` | Compatibility matrix | Coverage is limited to written states and does not prove browser or assistive-technology behavior |
 | Ruby style | `bundle exec rake standard` | Compatibility matrix | Style is not architectural correctness |
 | Built gem installs and loads | `bundle exec rake package_smoke` | `package` job | Loading does not prove every packaged asset or locale works in a host |
 
 `bundle exec rake` runs the active local gates together.
 
-## Planned controls for the Rails-native renderer
+## Planned controls before stable status
 
 These checks are requirements, not active coverage. Do not report them as passing until implemented.
 
 | Area | Required deterministic evidence |
 | --- | --- |
-| Rendering API | Strict-locals failures for missing and unknown arguments; rendered-output tests for every public state |
 | Localization | Default-key completeness, consumer overrides, missing-key failure, interpolation and pluralization, translated accessibility relationships |
 | Direction and expansion | RTL and long-string pseudo-locales; no forced LTR direction; stable DOM and focus order |
 | HTML and accessibility | HTML validation, relationship integrity, automated scanner for every gallery state |
 | Keyboard behavior | System tests for focus entry, movement, restoration, Escape, submission, and error recovery |
 | Skin boundary | Core works without a skin; official skin uses logical properties and passes contrast, forced-colors, zoom, and reflow checks |
-| Performance | Reproducible render and allocation baseline; collection cases; raw and compressed CSS/JS budgets |
-| Packaging | Installed host proves packaged views, helpers, locales, and assets are discoverable and overrideable |
+| Performance | Representative collection cases and raw/compressed asset budgets when a skin or behavior exists; the migration baseline is recorded separately |
+| Packaging | Expand installed-host proof when locales, helpers, or assets become public; views are covered today |
 | Compatibility | Supported Ruby and Rails matrix exercises the packaged gem, not only the repository checkout |
 
 String and symbol literal IDS translation keys are checked today. Dynamically constructed keys require explicit tests and review because a static policy check cannot prove their namespace or completeness.

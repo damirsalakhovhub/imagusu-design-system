@@ -13,18 +13,15 @@ class VerifyPolicyTest < Minitest::Test
         spec.name = "imagusu-design-system"
         spec.version = "0.1.0"
         spec.add_dependency "railties", ">= 8.0"
-        spec.add_dependency "view_component", ">= 4.0"
       end
     RUBY
-    write("script/policy/view_component_files.txt", "app/components/legacy_component.rb\n")
-    write("app/components/legacy_component.rb", "class LegacyComponent; end\n")
   end
 
   def teardown
     FileUtils.remove_entry(@root)
   end
 
-  def test_accepts_the_transitional_baseline
+  def test_accepts_the_rails_native_baseline
     assert_empty verifier.errors
   end
 
@@ -84,13 +81,42 @@ class VerifyPolicyTest < Minitest::Test
     write("app/components/new_component.rb", "class NewComponent; end\n")
 
     assert_includes verifier.errors,
-      "new legacy component files are forbidden during migration: app/components/new_component.rb"
+      "app/components is forbidden by the Rails-native rendering ADR: app/components/new_component.rb"
   end
 
-  def test_allows_deleting_a_legacy_component
-    FileUtils.rm(@root.join("app/components/legacy_component.rb"))
+  def test_rejects_view_component_in_appraisals
+    write("Appraisals", <<~RUBY)
+      appraise "legacy" do
+        gem "view_component"
+      end
+    RUBY
 
-    assert_empty verifier.errors
+    assert_includes verifier.errors,
+      "forbidden renderer dependencies: view_component in Appraisals"
+  end
+
+  def test_rejects_lookbook_in_the_gemfile
+    write("Gemfile", <<~RUBY)
+      source "https://rubygems.org"
+      gem "lookbook"
+    RUBY
+
+    assert_includes verifier.errors,
+      "forbidden renderer dependencies: lookbook in Gemfile"
+  end
+
+  def test_rejects_a_renderer_development_dependency_in_the_gemspec
+    write("imagusu_design_system.gemspec", <<~RUBY)
+      Gem::Specification.new do |spec|
+        spec.name = "imagusu-design-system"
+        spec.version = "0.1.0"
+        spec.add_dependency "railties"
+        spec.add_development_dependency("lookbook")
+      end
+    RUBY
+
+    assert_includes verifier.errors,
+      "forbidden renderer dependencies: lookbook in imagusu_design_system.gemspec"
   end
 
   def test_rejects_an_unscoped_translation_key

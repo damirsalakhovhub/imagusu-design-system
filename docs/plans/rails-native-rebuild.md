@@ -1,6 +1,6 @@
 # Rails-native rebuild plan
 
-Status: approved on 2026-08-19
+Status: implemented locally on 2026-08-19; remote CI and pre-stable manual evidence remain
 
 This plan executes ADR 0006. Five independent roles reached consensus: Rails architecture, simplicity, accessibility, performance, and 37signals evidence review.
 
@@ -9,7 +9,7 @@ This plan executes ADR 0006. Five independent roles reached consensus: Rails arc
 - GitHub has no IDS releases or tags; RubyGems has no published `imagusu_design_system` package.
 - The repository has no known external compatibility obligation. If evidence of a consumer appears, pause and revise the ADR rather than silently adding a shim.
 - The pre-rebuild deterministic baseline is `105 runs, 311 assertions, 0 failures`, plus Standard, policy, and package-smoke success.
-- Current runtime dependencies are `railties` and `view_component`; target runtime dependencies are `railties` only.
+- At plan approval, runtime dependencies were `railties` and `view_component`; the cutover target is `railties` only.
 - Core CSS, JavaScript, and frontend build tooling remain zero.
 
 ## Product scope after cutover
@@ -66,7 +66,7 @@ Exit: Architecture, Accessibility, and 37signals preflight agree on the API and 
 - Add a plain dummy-app gallery route and view for every public state of these two components. The gallery is for inspection, not a duplicate assertion suite.
 - Update package smoke to install the gem and render both partials from the installed package.
 
-Exit: native tests, gallery test, and installed-package smoke pass while legacy remains unchanged and read-only.
+Exit: native tests, gallery test, and installed-package smoke pass while legacy remains unchanged and read-only. **Complete at proof commit `032800e`.**
 
 ### 3. Measure before deletion
 
@@ -76,7 +76,7 @@ Exit: native tests, gallery test, and installed-package smoke pass while legacy 
 - Minimum method: 200 warm-ups; 40 timed samples; batches of 1,000 Buttons and 200 TextFields; run legacy/native and native/legacy.
 - Investigate a repeatable regression outside measured A/A noise. Accept a regression only with a recorded numeric delta and correctness or simplicity reason.
 
-Exit: evidence is stored without claiming that ERB partials are inherently faster.
+Exit: evidence is stored without claiming that ERB partials are inherently faster. **Complete in `docs/quality/rails-native-renderer-benchmark.md`.**
 
 ### 4. Atomic cutover
 
@@ -99,7 +99,7 @@ Also:
 - correct the changelog's false released-`0.1.0` history while retaining release automation for the first real publication;
 - regenerate dependency lockfiles that are committed or used by CI.
 
-Exit: `rg` finds ViewComponent or Lookbook only in historical ADR/migration evidence; runtime dependency is exactly `railties`; repository and built gem contain no `app/components`, CSS, JavaScript, or frontend manifests.
+Exit: active implementation and configuration contain no ViewComponent or Lookbook reference; historical ADR/migration evidence, policy negative tests, and reviewer rules may name what they prohibit. Runtime dependency is exactly `railties`; repository and built gem contain no `app/components`, CSS, JavaScript, or frontend manifests. **Complete.**
 
 ### 5. Final deterministic gate
 
@@ -109,7 +109,7 @@ Exit: `rg` finds ViewComponent or Lookbook only in historical ADR/migration evid
 - Every public gallery state passes HTML validation and automated accessibility scanning once those controls are installed.
 - Manual keyboard and assistive-technology results are recorded separately before calling the components stable.
 
-Exit: all five roles report `PASS`. Planned browser/AT evidence is never reported as completed automation.
+Exit: all five roles report `PASS`. Planned browser/AT evidence is never reported as completed automation. **Local gate complete; GitHub-hosted Ruby matrix awaits push.**
 
 ## Explicit non-goals
 

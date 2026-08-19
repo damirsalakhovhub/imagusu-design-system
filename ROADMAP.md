@@ -1,21 +1,22 @@
 # Roadmap
 
-## Foundation — complete
+## Foundation — current
 
-- Gem packaging, Rails Engine, compatibility CI, release automation, and governance.
-- One complete component to validate the authoring and consuming workflow.
-- Native headless form primitives with Rails FormBuilder and accessibility contracts.
-- Core links, feedback, status, containment, file upload, and grouped selection primitives.
+- Rails-native Engine packaging with `railties` as the only runtime dependency.
+- Strict-local Button and TextField partials proving leaf and FormBuilder-bound rendering.
+- Deterministic architecture, package, compatibility, localization, and rendered-contract gates.
+- Plain no-CSS/no-JavaScript gallery.
+- Complete the planned HTML validation and automated accessibility controls.
+- Record manual keyboard and assistive-technology evidence before describing either component as stable.
 
 ## Alpha
 
-- Add design tokens and browser-ready CSS without requiring a consumer build tool.
-- Add Lookbook as a development-only documentation workbench.
-- Pilot Button in a real Imagusu flow and stabilize its API.
-- Add components only from confirmed product use cases.
+- Pilot Button and TextField in confirmed consumer flows and remove unnecessary options.
+- Define skin tokens and browser-ready namespaced CSS without a consumer build step.
+- Add a component only after documenting its consumer problem, semantic contract, accessibility evidence, and skin boundary.
 
 ## 1.0
 
-- Stable component, markup, token, and asset contracts.
-- Documented support window, deprecation period, and migration guides.
-- Accessibility review covering automated, keyboard, and assistive-technology scenarios.
+- Stable rendering paths, strict locals, markup, localization, token, and asset contracts.
+- Documented support window, deprecation policy, and migration guides.
+- Accessibility evidence covering automated, keyboard, zoom/reflow, forced-colors, and assistive-technology scenarios.

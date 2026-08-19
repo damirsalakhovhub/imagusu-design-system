@@ -15,7 +15,7 @@ Use Rails and browser primitives directly. Add an abstraction or dependency only
 - Do not infer what DHH or 37signals would approve. Separate published guidance, observed public code, IDS decisions, and inference.
 - Do not add a component framework, internal rendering DSL, slots framework, build step, or runtime dependency without a superseding architecture decision and measured justification.
 - Do not put product styling into the foundation. Core CSS is limited to behavior and accessibility that cannot safely be left to a skin.
-- Current ViewComponent files describe the implementation being replaced. Before migration code begins, supersede `docs/architecture/0001-viewcomponent-engine.md`. Do not add new ViewComponent components.
+- ViewComponent, Lookbook, `app/components/**`, a component base class, and compatibility renderers are prohibited by ADR 0006. Public rendering uses namespaced strict-local partials under `app/views/imagusu/design_system/`.
 
 ## Ownership model
 

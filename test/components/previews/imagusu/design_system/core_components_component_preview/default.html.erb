@@ -1,8 +1,0 @@
-<%= render Imagusu::DesignSystem::LinkComponent.new(href: "#profile") do %>Open profile<% end %>
-<%= render Imagusu::DesignSystem::BadgeComponent.new(tone: :success) do %>Ready<% end %>
-<%= render Imagusu::DesignSystem::AlertComponent.new(title: "Profile saved", tone: :success) do %>Your changes are now visible.<% end %>
-<%= render Imagusu::DesignSystem::ErrorSummaryComponent.new(title: "There is a problem", errors: [{field_id: "profile-email", message: "Enter a valid email"}]) %>
-<% card = Imagusu::DesignSystem::CardComponent.new(as: :article, html_attributes: {aria: {labelledby: "profile-card-title"}}) %>
-<% card.with_header { '<h2 id="profile-card-title">Profile</h2>'.html_safe } %>
-<% card.with_footer { "Updated today" } %>
-<%= render card do %>Ada Lovelace<% end %>

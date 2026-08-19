@@ -1,129 +1,98 @@
 # Imagusu Design System
 
-Server-rendered UI components for Imagusu applications built with Ruby on Rails.
+A small, server-rendered interface foundation for Ruby on Rails.
 
-The project is an early-stage Rails adapter for the Imagusu Design System. Version 0.1 proves the packaging, component API, compatibility, accessibility, and release workflow before the visual language is added.
+IDS is experimental and intentionally unstyled. It owns semantic HTML, accessibility relationships, strict rendering contracts, and stable `ids-*` skin hooks. A separate skin may add tokens and CSS without changing core markup or behavior.
 
-## Status
-
-Experimental. Public APIs can change in minor releases before 1.0. Patch releases remain backward compatible.
-
-Supported runtime:
+## Runtime
 
 - Ruby 3.3, 3.4, or 4.0;
 - Rails 8.0 or 8.1;
-- ViewComponent 4.x.
+- no component framework, CSS, JavaScript, frontend toolchain, routes, models, or database.
 
-CI tests every Ruby/Rails pair in this range and the minimum supported ViewComponent 4.0 release.
+The only runtime dependency is `railties`.
 
 ## Installation
 
-Until the first RubyGems release, install from GitHub:
+Until the first RubyGems release:
 
 ```ruby
 gem "imagusu_design_system",
   github: "damirsalakhovhub/imagusu-design-system"
 ```
 
-Then run `bundle install`. The Rails engine loads components automatically. The gem does not modify the host application and includes no CSS or JavaScript in 0.1.
+Run `bundle install`. The Rails Engine makes the packaged partials discoverable and does not modify the host application.
 
-## Usage
+## Button
 
-```erb
-<%= render Imagusu::DesignSystem::ButtonComponent.new do %>
-  Save
-<% end %>
-```
+IDS exposes ordinary namespaced Rails partials with strict locals:
 
 ```erb
-<%= render Imagusu::DesignSystem::ButtonComponent.new(
+<%= render "imagusu/design_system/button",
+  content: "Save",
   type: :submit,
-  disabled: form_disabled,
+  disabled: false,
   html_attributes: {
     form: "profile-form",
-    data: { action: "profile#save" },
-    aria: { label: "Save profile" }
-  }
-) do %>
-  Save
-<% end %>
+    data: { action: "profile#save" }
+  } %>
 ```
 
-`type` accepts `:button`, `:submit`, or `:reset`. Supported HTML attributes are `id`, `name`, `value`, `form`, `title`, `autofocus`, `data`, and `aria`. Content and attributes are escaped by Rails.
+`content:` is required nonblank plain text. `type:` accepts `:button`, `:submit`, or `:reset`. `disabled:` is a strict boolean. Supported HTML attributes are `id`, `name`, `value`, `form`, `title`, `autofocus`, `data`, and non-owned `aria`.
 
-Consumers own the accessible name and page-level behavior. Automated component tests do not replace keyboard and assistive-technology testing in the consuming application.
+The visible content is the accessible name. IDS rejects `aria-label`, `aria-labelledby`, `aria-hidden`, consumer classes, and conflicting disabled state. Hook: `ids-button`.
 
-## Form controls
-
-Form components use the Rails `FormBuilder`, so nested scopes, IDs, names, values, validation rerenders, and hidden checkbox/radio inputs retain native Rails behavior.
+## Text field
 
 ```erb
 <%= form_with model: @profile do |form| %>
-  <%= render Imagusu::DesignSystem::TextFieldComponent.new(
+  <%= render "imagusu/design_system/text_field",
     form: form,
     method: :email,
-    type: :email,
     label: "Email",
-    label_suffix: "(required)",
+    type: :email,
     hint: "Used for account notifications",
-    required: true
-  ) %>
-
-  <%= render Imagusu::DesignSystem::SelectComponent.new(
-    form: form,
-    method: :role,
-    label: "Role",
-    prompt: "Choose a role",
-    options: [["Member", "member"], ["Administrator", "admin"]]
-  ) %>
+    required: true %>
 <% end %>
 ```
 
-Available primitives: `FieldComponent`, `TextFieldComponent`, `TextAreaComponent`, `SelectComponent`, `CheckboxComponent`, and `RadioGroupComponent`. They ship semantic HTML and stable `ids-*` class hooks but no CSS or JavaScript. See [form control contracts](docs/components/form-controls.md).
+The partial accepts:
 
-## Core components
+- required `form:`, `method:`, and nonblank visible `label:`;
+- `type:` — `:text`, `:email`, `:url`, `:tel`, `:search`, or `:password`;
+- optional plain-text `hint:`;
+- `errors:` — `:auto`, `false`, `nil`, a String, or an Array;
+- strict boolean `required:` and `disabled:`;
+- `html_attributes:` — the documented allowlist plus non-owned `data` and `aria`.
 
-The gem also includes `LinkComponent`, `AlertComponent`, `ErrorSummaryComponent`, `CheckboxGroupComponent`, `FileUploadComponent`, `BadgeComponent`, and `CardComponent`.
+Rails FormBuilder owns the control ID, name, bound value, nested scope, and error rerender. IDS owns the visible label, hint/error IDs, merged `aria-describedby`, conditional `aria-invalid`, DOM order, and hooks. Password values are never echoed.
 
-```erb
-<%= render Imagusu::DesignSystem::AlertComponent.new(
-  title: "Profile saved",
-  tone: :success
-) do %>
-  Your changes are now visible.
-<% end %>
-```
-
-These components are server-rendered and progressively enhanceable. Alerts are not live regions unless `announce: :polite` or `announce: :assertive` is explicitly requested. See [core component contracts](docs/components/core-components.md).
+See [Button](docs/components/core-components.md) and [TextField](docs/components/form-controls.md) for complete experimental contracts. Components removed during the Rails-native reset are not public promises and return only for confirmed consumer needs.
 
 ## Development
 
 ```sh
 bin/setup
 bundle exec rake
-```
-
-To view every component without Imagusu styles:
-
-```sh
 bin/components
 ```
 
-Open `http://127.0.0.1:3000/gallery` for the unstyled gallery. The full Lookbook component browser is available at `http://127.0.0.1:3000/components`.
+Open `http://127.0.0.1:3000/gallery`. The gallery is an ordinary dummy Rails route with no CSS, JavaScript, or documentation framework.
 
-The default task runs component tests, Standard Ruby, and a packaged-gem smoke test. Compatibility appraisals:
+Compatibility checks:
 
 ```sh
 bundle exec appraisal rails-8-0 rake
 bundle exec appraisal rails-8-1 rake
-bundle exec appraisal rails-8-0-view-component-4-0 rake
 ```
 
-See [CONTRIBUTING.md](CONTRIBUTING.md), [ROADMAP.md](ROADMAP.md), and [docs/architecture](docs/architecture) before adding a component.
+The default task runs the architecture policy, rendered contracts, Standard, and an isolated installed-gem smoke test. See [automated controls](docs/quality/automated-controls.md) and [architecture decisions](docs/architecture).
 
-## Release policy
+## Status and releases
 
-Releases use Semantic Versioning. Before 1.0, breaking API or markup changes require a minor release and migration notes; patches are backward compatible. RubyGems publication uses Trusted Publishing with GitHub OIDC and no long-lived API token.
+No gem version has been published. Public paths, locals, markup, relationships, and hooks are experimental. Before 1.0, breaking changes require a minor version and release notes; patch releases remain backward compatible.
+
+RubyGems publication is prepared to use Trusted Publishing with GitHub OIDC and no long-lived API token.
 
 ## License
 

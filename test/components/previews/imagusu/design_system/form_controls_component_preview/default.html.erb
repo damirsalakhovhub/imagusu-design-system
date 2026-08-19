@@ -1,8 +1,0 @@
-<%= form_with url: "#", scope: :profile do |form| %>
-  <%= render Imagusu::DesignSystem::TextFieldComponent.new(form: form, method: :email, type: :email, label: "Email", hint: "Used for account notifications") %>
-  <%= render Imagusu::DesignSystem::TextAreaComponent.new(form: form, method: :bio, label: "Biography") %>
-  <%= render Imagusu::DesignSystem::SelectComponent.new(form: form, method: :role, label: "Role", prompt: "Choose a role", options: [["Member", "member"], ["Administrator", "admin"]]) %>
-  <%= render Imagusu::DesignSystem::CheckboxComponent.new(form: form, method: :terms, label: "Accept terms") %>
-  <%= render Imagusu::DesignSystem::RadioGroupComponent.new(form: form, method: :frequency, label: "Notifications", options: [["Daily", "daily"], ["Weekly", "weekly"]]) %>
-  <%= render Imagusu::DesignSystem::ButtonComponent.new(type: :submit) { "Save" } %>
-<% end %>

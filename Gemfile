@@ -5,6 +5,5 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
-  gem "lookbook", "~> 2.3"
   gem "puma", "~> 7.0"
 end

@@ -16,6 +16,10 @@
   raise ArgumentError, "form must be a Rails FormBuilder" unless form.is_a?(ActionView::Helpers::FormBuilder)
   raise ArgumentError, "method must not be empty" if normalized_method.nil? || normalized_method.to_s.strip.empty?
   raise ArgumentError, "label must not be empty" if label.to_s.strip.empty?
+  raise ArgumentError, "label must be plain text" if label.respond_to?(:html_safe?) && label.html_safe?
+  if hint.respond_to?(:html_safe?) && hint.html_safe?
+    raise ArgumentError, "hint must be plain text"
+  end
   raise ArgumentError, "required must be true or false" unless [true, false].include?(required)
   raise ArgumentError, "disabled must be true or false" unless [true, false].include?(disabled)
 
@@ -32,6 +36,9 @@
     Array(errors)
   else
     raise ArgumentError, "errors must be :auto, false, nil, a String, or an Array"
+  end
+  if messages.compact.any? { |message| message.respond_to?(:html_safe?) && message.html_safe? }
+    raise ArgumentError, "errors must be plain text"
   end
   messages = messages.compact.map(&:to_s).reject(&:empty?)
 

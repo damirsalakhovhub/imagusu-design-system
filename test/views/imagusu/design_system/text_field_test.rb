@@ -111,6 +111,15 @@ class Imagusu::DesignSystem::TextFieldViewTest < ActionView::TestCase
     assert_raises(ActionView::Template::Error) do
       render_text_field(form: form_builder, method: :email, label: "Email", errors: true)
     end
+    assert_raises(ActionView::Template::Error) do
+      render_text_field(form: form_builder, method: :email, label: "<span>Email</span>".html_safe)
+    end
+    assert_raises(ActionView::Template::Error) do
+      render_text_field(form: form_builder, method: :email, label: "Email", hint: "<span>Hint</span>".html_safe)
+    end
+    assert_raises(ActionView::Template::Error) do
+      render_text_field(form: form_builder, method: :email, label: "Email", errors: ["<span>Error</span>".html_safe])
+    end
   end
 
   def test_strict_locals_reject_missing_and_unknown_input

@@ -6,7 +6,7 @@ Open an issue describing the product use case. A new public component or state n
 
 - a confirmed consumer and owner;
 - a semantic HTML and accessibility contract;
-- preview scenarios for every public state;
+- gallery states for every public state that benefits from visual inspection;
 - rendered-output tests and manual keyboard checks;
 - documentation and changelog entry.
 

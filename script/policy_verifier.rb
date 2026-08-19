@@ -5,8 +5,9 @@ require "rubygems"
 
 module IDS
   class PolicyVerifier
-    ALLOWED_RUNTIME_DEPENDENCIES = %w[railties view_component].freeze
+    ALLOWED_RUNTIME_DEPENDENCIES = %w[railties].freeze
     REQUIRED_RUNTIME_DEPENDENCIES = %w[railties].freeze
+    FORBIDDEN_RENDERER_GEMS = %w[lookbook view_component].freeze
     FRONTEND_MANIFESTS = %w[
       package.json
       package-lock.json
@@ -43,8 +44,9 @@ module IDS
     def errors
       @errors ||= [].tap do |errors|
         verify_runtime_dependencies(errors)
+        verify_renderer_dependencies(errors)
         verify_frontend_boundary(errors)
-        verify_legacy_component_freeze(errors)
+        verify_legacy_component_boundary(errors)
         verify_i18n_namespace(errors)
       end
     end
@@ -95,19 +97,28 @@ module IDS
       end
     end
 
-    def verify_legacy_component_freeze(errors)
-      allowlist_path = @root.join("script/policy/view_component_files.txt")
-      unless allowlist_path.file?
-        errors << "script/policy/view_component_files.txt is missing"
-        return
+    def verify_renderer_dependencies(errors)
+      declarations = %w[Gemfile Appraisals]
+      declarations.concat(relative_files("*.gemspec"))
+      declarations.concat(relative_files("gemfiles/*.gemfile"))
+
+      forbidden = declarations.flat_map do |path|
+        contents = @root.join(path)
+        next [] unless contents.file?
+
+        contents.read.scan(
+          /(?:gem|add_(?:(?:runtime|development)_)?dependency)\s*(?:\(\s*)?["'](#{FORBIDDEN_RENDERER_GEMS.join("|")})["']/
+        ).flatten.map { |name| "#{name} in #{path}" }
       end
 
-      allowed = allowlist_path.readlines(chomp: true).reject { |line| line.empty? || line.start_with?("#") }
-      current = relative_files("app/components/**/*")
-      unexpected = current - allowed
+      errors << "forbidden renderer dependencies: #{forbidden.sort.join(", ")}" if forbidden.any?
+    end
 
-      if unexpected.any?
-        errors << "new legacy component files are forbidden during migration: #{unexpected.join(", ")}"
+    def verify_legacy_component_boundary(errors)
+      legacy_files = relative_files("app/components/**/*")
+
+      if legacy_files.any?
+        errors << "app/components is forbidden by the Rails-native rendering ADR: #{legacy_files.join(", ")}"
       end
     end
 

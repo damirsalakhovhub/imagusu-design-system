@@ -46,6 +46,8 @@ Legacy ViewComponent code may remain read-only on the rebuild branch only until 
 
 The cutover then removes all ViewComponent and Lookbook implementation, tests, previews, configuration, dependencies, and compatibility matrix entries together. The policy gate changes from a transitional allowlist to a prohibition.
 
+The cutover was completed on 2026-08-19 after native contract, gallery, package, and benchmark evidence passed review.
+
 ## Consequences
 
 IDS has one Rails-native rendering concept and one runtime dependency: `railties`. The cutover deliberately breaks an unpublished experimental API. Useful behavior is retained as renderer-neutral acceptance criteria; accidental constructor, slot, whitespace, and preview-class details are discarded.

@@ -14,6 +14,11 @@ end
 PackageSmokeApplication.initialize!
 PackageSmokeApplication.eager_load!
 
+runtime_dependencies = Gem.loaded_specs.fetch("imagusu_design_system").runtime_dependencies.map(&:name).sort
+abort "packaged gem has unexpected runtime dependencies: #{runtime_dependencies.join(", ")}" unless runtime_dependencies == ["railties"]
+abort "ViewComponent loaded in isolated host" if Gem.loaded_specs.key?("view_component")
+abort "Lookbook loaded in isolated host" if Gem.loaded_specs.key?("lookbook")
+
 view_context = Class.new(ActionController::Base).new.view_context
 native_button = view_context.render(
   partial: "imagusu/design_system/button",
@@ -39,30 +44,4 @@ unless native_field.include?(%(<input)) &&
     native_field.include?(%(type="email")) &&
     native_field.include?(%(name="profile[email]"))
   abort "packaged Rails-native text field partial did not render"
-end
-
-component = Imagusu::DesignSystem::ButtonComponent.new(type: :submit).with_content("Package smoke")
-rendered = component.render_in(view_context)
-
-abort "packaged component did not render" unless rendered.include?(%(<button type="submit">Package smoke</button>))
-
-form = ActionView::Helpers::FormBuilder.new(:profile, nil, view_context, {})
-field = Imagusu::DesignSystem::TextFieldComponent.new(
-  form: form,
-  method: :email,
-  type: :email,
-  label: "Email",
-  errors: false
-)
-rendered_field = field.render_in(view_context)
-
-unless rendered_field.include?(%(<input)) && rendered_field.include?(%(type="email")) && rendered_field.include?(%(name="profile[email]"))
-  abort "packaged form component did not render"
-end
-
-alert = Imagusu::DesignSystem::AlertComponent.new(title: "Package smoke", tone: :success).with_content("Ready")
-rendered_alert = alert.render_in(view_context)
-
-unless rendered_alert.include?(%(class="ids-alert")) && rendered_alert.include?(%(data-tone="success"))
-  abort "packaged primitive component did not render"
 end
