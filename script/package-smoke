@@ -14,3 +14,5 @@ env -i HOME="$HOME" PATH="$PATH" GEM_HOME="$gem_home" GEM_PATH="$gem_home" gem i
 
 (cd "$package_dir" && env -i HOME="$HOME" PATH="$PATH" GEM_HOME="$gem_home" GEM_PATH="$gem_home" ruby "$repo_root/script/package-smoke-host.rb")
 gem specification "$gem_file" files --yaml | grep -q "app/components/imagusu/design_system/button_component.html.erb"
+gem specification "$gem_file" files --yaml | grep -q "app/views/imagusu/design_system/_button.html.erb"
+gem specification "$gem_file" files --yaml | grep -q "app/views/imagusu/design_system/_text_field.html.erb"

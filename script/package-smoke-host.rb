@@ -15,6 +15,32 @@ PackageSmokeApplication.initialize!
 PackageSmokeApplication.eager_load!
 
 view_context = Class.new(ActionController::Base).new.view_context
+native_button = view_context.render(
+  partial: "imagusu/design_system/button",
+  locals: {content: "Native package smoke", type: :submit}
+)
+
+unless native_button.include?(%(<button)) &&
+    native_button.include?(%(class="ids-button")) &&
+    native_button.include?(%(type="submit")) &&
+    native_button.include?(%(">Native package smoke</button>))
+  abort "packaged Rails-native button partial did not render"
+end
+
+native_form = ActionView::Helpers::FormBuilder.new(:profile, nil, view_context, {})
+native_field = view_context.render(
+  partial: "imagusu/design_system/text_field",
+  locals: {form: native_form, method: :email, label: "Email", type: :email}
+)
+
+unless native_field.include?(%(<input)) &&
+    native_field.include?(%(id="profile_email")) &&
+    native_field.include?(%(class="ids-input")) &&
+    native_field.include?(%(type="email")) &&
+    native_field.include?(%(name="profile[email]"))
+  abort "packaged Rails-native text field partial did not render"
+end
+
 component = Imagusu::DesignSystem::ButtonComponent.new(type: :submit).with_content("Package smoke")
 rendered = component.render_in(view_context)
 

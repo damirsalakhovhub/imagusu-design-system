@@ -1,6 +1,6 @@
 # ADR 0001: ViewComponent 4 with a Rails Engine
 
-Status: accepted
+Status: superseded by ADR 0006
 
 ## Decision
 
