@@ -13,7 +13,7 @@ end
 class FormComponentTestModel
   include ActiveModel::Model
 
-  attr_accessor :bio, :email, :frequency, :role, :roles, :terms
+  attr_accessor :bio, :document, :email, :frequency, :interests, :role, :roles, :terms
 end
 
 class ViewComponent::TestCase

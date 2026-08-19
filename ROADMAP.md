@@ -5,6 +5,7 @@
 - Gem packaging, Rails Engine, compatibility CI, release automation, and governance.
 - One complete component to validate the authoring and consuming workflow.
 - Native headless form primitives with Rails FormBuilder and accessibility contracts.
+- Core links, feedback, status, containment, file upload, and grouped selection primitives.
 
 ## Alpha
 

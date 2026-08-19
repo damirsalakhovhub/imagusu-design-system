@@ -1,0 +1,16 @@
+<%= form_with url: "#", scope: :profile do |form| %>
+  <%= render Imagusu::DesignSystem::CheckboxGroupComponent.new(
+    form: form,
+    method: :interests,
+    label: "Interests",
+    hint: "Choose any that apply",
+    options: [["Design", "design"], ["Engineering", "engineering"]]
+  ) %>
+  <%= render Imagusu::DesignSystem::FileUploadComponent.new(
+    form: form,
+    method: :document,
+    label: "Upload document",
+    hint: "PDF, up to 10 MB",
+    html_attributes: {accept: "application/pdf"}
+  ) %>
+<% end %>

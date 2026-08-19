@@ -68,6 +68,7 @@ class Imagusu::DesignSystem::RadioGroupComponentTest < ViewComponent::TestCase
   def test_rejects_malformed_options_and_unknown_option_attributes
     assert_raises(ArgumentError) { component(options: ["daily"]) }
     assert_raises(ArgumentError) { component(options: [["Daily", "daily", {onclick: "alert(1)"}]]) }
+    assert_raises(ArgumentError) { component(html_attributes: {data: {state: "valid"}}) }
   end
 
   private

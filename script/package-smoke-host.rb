@@ -33,3 +33,10 @@ rendered_field = field.render_in(view_context)
 unless rendered_field.include?(%(<input)) && rendered_field.include?(%(type="email")) && rendered_field.include?(%(name="profile[email]"))
   abort "packaged form component did not render"
 end
+
+alert = Imagusu::DesignSystem::AlertComponent.new(title: "Package smoke", tone: :success).with_content("Ready")
+rendered_alert = alert.render_in(view_context)
+
+unless rendered_alert.include?(%(class="ids-alert")) && rendered_alert.include?(%(data-tone="success"))
+  abort "packaged primitive component did not render"
+end

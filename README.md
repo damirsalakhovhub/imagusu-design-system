@@ -81,6 +81,21 @@ Form components use the Rails `FormBuilder`, so nested scopes, IDs, names, value
 
 Available primitives: `FieldComponent`, `TextFieldComponent`, `TextAreaComponent`, `SelectComponent`, `CheckboxComponent`, and `RadioGroupComponent`. They ship semantic HTML and stable `ids-*` class hooks but no CSS or JavaScript. See [form control contracts](docs/components/form-controls.md).
 
+## Core components
+
+The gem also includes `LinkComponent`, `AlertComponent`, `ErrorSummaryComponent`, `CheckboxGroupComponent`, `FileUploadComponent`, `BadgeComponent`, and `CardComponent`.
+
+```erb
+<%= render Imagusu::DesignSystem::AlertComponent.new(
+  title: "Profile saved",
+  tone: :success
+) do %>
+  Your changes are now visible.
+<% end %>
+```
+
+These components are server-rendered and progressively enhanceable. Alerts are not live regions unless `announce: :polite` or `announce: :assertive` is explicitly requested. See [core component contracts](docs/components/core-components.md).
+
 ## Development
 
 ```sh
