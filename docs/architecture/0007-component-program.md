@@ -31,6 +31,8 @@ The target family covers Button, LinkButton, IconButton, ButtonGroup, ToggleButt
 
 `danger` communicates visual emphasis; it does not imply confirmation. Confirmation is a separate interaction, normally owned by a consuming flow or a future Dialog contract. Toggle, menu, and asynchronous buttons do not ship until their state, keyboard, focus, announcement, failure, and no-JavaScript contracts are approved and tested. Icon buttons do not ship until IDS has a trusted icon composition and accessible-name contract.
 
+The first Button milestone intentionally completes only the text native Button without a skin. Presentation axes remain planned until they have CSS, and the related semantic components remain planned with the dependency recorded in the catalog and Button contract. This satisfies the family exit rule without publishing dormant locals or incomplete interaction.
+
 Primer's full API is not a requirements list. IDS may omit an option that has no product-neutral use case, and may use a different Rails-native API. RubyUI remains a secondary simplicity reference, not a compatibility target.
 
 ## Delivery rule

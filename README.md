@@ -38,9 +38,9 @@ IDS exposes ordinary namespaced Rails partials with strict locals:
   } %>
 ```
 
-`content:` is required nonblank plain text. `type:` accepts `:button`, `:submit`, or `:reset`. `disabled:` is a strict boolean. Supported HTML attributes are `id`, `name`, `value`, `form`, `title`, `autofocus`, `data`, and non-owned `aria`.
+`content:` is required nonblank plain text. `type:` accepts `:button` or `:submit`. `disabled:` is a strict boolean. Supported HTML attributes are `id`, `name`, `value`, `form`, `data`, `aria-describedby`, and `aria-details`.
 
-The visible content is the accessible name. IDS rejects `aria-label`, `aria-labelledby`, `aria-hidden`, consumer classes, and conflicting disabled state. Hook: `ids-button`.
+The visible content is the accessible name. IDS rejects stateful or name-changing ARIA, consumer classes, and conflicting disabled state. Hook: `ids-button`. Visual variants and related button patterns remain planned until their skin or behavior dependency is real.
 
 ## Text field
 
@@ -69,7 +69,7 @@ Rails FormBuilder owns the control ID, name, bound value, nested scope, and erro
 
 See [Button](docs/components/core-components.md) and [TextField](docs/components/form-controls.md) for complete experimental contracts. Components removed during the Rails-native reset are not public promises and return only for confirmed consumer needs.
 
-The [component catalog](docs/components/catalog.md) records the ordered working program and marks finished evidence. Work proceeds family by family: Button, Text input, Select, then the remaining product-neutral components.
+The [component catalog](docs/components/catalog.md) records the ordered working program and marks finished evidence. The no-skin text Button milestone is complete; Text input is current, followed by Select. Deferred Button presentation and interaction return only with their recorded skin or behavior dependency.
 
 ## Localization
 

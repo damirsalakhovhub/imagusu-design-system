@@ -12,7 +12,8 @@
 
 ## Alpha
 
-- Complete the Button family, then Text input and Select, following the catalog state matrix.
+- Expand the current Text input family, then implement Select, following the catalog state matrix.
+- Return to deferred Button presentation and interaction when their skin, icon, grouping, or behavior dependency is approved.
 - Define skin tokens and browser-ready namespaced CSS without a consumer build step.
 - Add a component only after documenting its consumer problem, semantic contract, accessibility evidence, and skin boundary.
 

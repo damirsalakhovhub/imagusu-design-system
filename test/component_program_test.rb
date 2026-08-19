@@ -24,7 +24,7 @@ class ComponentProgramTest < ActiveSupport::TestCase
     current_rows = CATALOG_PATH.readlines.grep(/\|\s*▶\s*\|/)
 
     assert_equal 1, current_rows.size
-    assert_match(/\|\s*1\s*\|\s*▶\s*\|\s*Button\s*\|/, current_rows.first)
+    assert_match(/\|\s*2\s*\|\s*▶\s*\|\s*Text input\s*\|/, current_rows.first)
   end
 
   test "the repo-local skill has portable frontmatter" do

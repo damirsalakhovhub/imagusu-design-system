@@ -27,8 +27,8 @@ This is the ordered, product-neutral IDS program. It is a working inventory, not
 
 | # | Current | Family | Intended scope | State |
 | ---: | :---: | --- | --- | --- |
-| 1 | ▶ | Button | Action, link-style action, icon, group, toggle, menu, loading | base Button experimental; family planned |
-| 2 |  | Text input | Text-like inputs, labels, hints, errors, optional visual affordances | base TextField experimental; family expansion planned |
+| 1 |  | Button | Action, link-style action, icon, group, toggle, menu, loading | text Button milestone experimental; remaining slices explicitly deferred |
+| 2 | ▶ | Text input | Text-like inputs, labels, hints, errors, optional visual affordances | base TextField experimental; family expansion planned |
 | 3 |  | Select | Native single and multiple select; custom combobox is separate | planned |
 | 4 |  | Textarea | Multiline text with the shared field contract | planned |
 | 5 |  | Checkbox | Checkbox and CheckboxGroup | planned |
@@ -65,14 +65,14 @@ Product shells such as application headers, sidebars, page layouts, and domain-s
 
 | Component | Brief/API | Core | Rendered tests | Gallery | Owned EN/RU | Skin | Stable evidence | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Button (text action) | ✅ | ✅ | ✅ | ✅ | — consumer label | ☐ | ☐ | experimental |
-| Button visual variants/sizes/width | ◐ ADR scope | ☐ | ☐ | ☐ | — | ☐ | ☐ | planned |
-| LinkButton | ◐ ADR scope | ☐ | ☐ | ☐ | — consumer label | ☐ | ☐ | planned |
-| IconButton | ◐ ADR scope | ☐ | ☐ | ☐ | ☐ where IDS owns a name | ☐ | ☐ | planned |
-| ButtonGroup | ◐ ADR scope | ☐ | ☐ | ☐ | — consumer label | ☐ | ☐ | planned |
-| ToggleButton | ◐ ADR scope | ☐ | ☐ | ☐ | — consumer label | ☐ | ☐ | planned |
-| MenuButton | ◐ ADR scope | ☐ | ☐ | ☐ | — consumer label | ☐ | ☐ | planned |
-| Async/loading Button | ◐ ADR scope | ☐ | ☐ | ☐ | ☐ with its approved contract | ☐ | ☐ | planned |
+| Button (text action) | ✅ | ✅ | ✅ | ✅ | — consumer label | — deferred | ☐ | experimental |
+| Button visual variants/sizes/width | ◐ ADR scope | ☐ skin dependency | ☐ | ☐ | — | ☐ | ☐ | planned |
+| LinkButton | ◐ needs skin/use case | ☐ | ☐ | ☐ | — consumer label | ☐ | ☐ | planned |
+| IconButton | ◐ needs trusted icon | ☐ | ☐ | ☐ | ☐ where IDS owns a name | ☐ | ☐ | planned |
+| ButtonGroup | ◐ needs grouping case | ☐ | ☐ | ☐ | — consumer label | ☐ | ☐ | planned |
+| ToggleButton | ◐ needs no-JS state flow | ☐ | ☐ | ☐ | — consumer label | ☐ | ☐ | planned |
+| MenuButton | ◐ needs behavior ADR | ☐ | ☐ | ☐ | — consumer label | ☐ | ☐ | planned |
+| Async/loading Button | ◐ needs behavior ADR | ☐ | ☐ | ☐ | ☐ with its approved contract | ☐ | ☐ | planned |
 | TextField (text-like input) | ✅ | ✅ | ✅ | ✅ | — consumer label/hint/errors | ☐ | ☐ | experimental |
 
-The next change is the Button brief and state matrix. Planning this family does not make any unimplemented partial or local public API.
+The next change is the Text input brief and state matrix. Planned Button extensions remain visible without becoming public API.

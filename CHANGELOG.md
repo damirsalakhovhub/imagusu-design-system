@@ -12,6 +12,11 @@ No IDS version has been published.
 - Rails-native strict-local Button and TextField partials.
 - Plain component gallery, accessibility contracts, localization boundary, and deterministic architecture policy.
 - Ordered component program, proportional testing guide, repo-local workflow skill, and packaged English/Russian locale namespaces.
+- Completed the no-skin text Button milestone with a smaller action/submit and descriptive-ARIA contract.
+
+### Changed
+
+- Removed unreleased Button `reset`, `title`, `autofocus`, and generic ARIA support before the first gem release.
 
 ### Removed
 
