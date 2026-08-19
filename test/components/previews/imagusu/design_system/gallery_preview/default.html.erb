@@ -1,0 +1,70 @@
+<h1>Imagusu Design System</h1>
+
+<h2>Button</h2>
+<%= render Imagusu::DesignSystem::ButtonComponent.new do %>Button<% end %>
+
+<h2>Link</h2>
+<%= render Imagusu::DesignSystem::LinkComponent.new(href: "#") do %>Link<% end %>
+
+<h2>Badge</h2>
+<%= render Imagusu::DesignSystem::BadgeComponent.new do %>Badge<% end %>
+
+<h2>Alert</h2>
+<%= render Imagusu::DesignSystem::AlertComponent.new(title: "Alert") do %>Alert message<% end %>
+
+<h2>Card</h2>
+<% card = Imagusu::DesignSystem::CardComponent.new %>
+<% card.with_header { "Card header" } %>
+<% card.with_footer { "Card footer" } %>
+<%= render card do %>Card body<% end %>
+
+<h2>Error summary</h2>
+<%= render Imagusu::DesignSystem::ErrorSummaryComponent.new(
+  title: "There is a problem",
+  errors: [{field_id: "gallery_email", message: "Enter an email"}]
+) %>
+
+<%= form_with url: "#", scope: :gallery do |form| %>
+  <h2>Field</h2>
+  <% field = Imagusu::DesignSystem::FieldComponent.new(control_id: "gallery_custom", label: "Field") %>
+  <%= render field do %>
+    <%= text_field_tag "gallery[custom]", nil, **field.control_attributes %>
+  <% end %>
+
+  <h2>Text field</h2>
+  <%= render Imagusu::DesignSystem::TextFieldComponent.new(form: form, method: :email, label: "Email") %>
+
+  <h2>Text area</h2>
+  <%= render Imagusu::DesignSystem::TextAreaComponent.new(form: form, method: :biography, label: "Biography") %>
+
+  <h2>Select</h2>
+  <%= render Imagusu::DesignSystem::SelectComponent.new(
+    form: form,
+    method: :role,
+    label: "Role",
+    prompt: "Choose a role",
+    options: [["Member", "member"], ["Administrator", "administrator"]]
+  ) %>
+
+  <h2>Checkbox</h2>
+  <%= render Imagusu::DesignSystem::CheckboxComponent.new(form: form, method: :terms, label: "Accept terms") %>
+
+  <h2>Checkbox group</h2>
+  <%= render Imagusu::DesignSystem::CheckboxGroupComponent.new(
+    form: form,
+    method: :interests,
+    label: "Interests",
+    options: [["Design", "design"], ["Engineering", "engineering"]]
+  ) %>
+
+  <h2>Radio group</h2>
+  <%= render Imagusu::DesignSystem::RadioGroupComponent.new(
+    form: form,
+    method: :frequency,
+    label: "Frequency",
+    options: [["Daily", "daily"], ["Weekly", "weekly"]]
+  ) %>
+
+  <h2>File upload</h2>
+  <%= render Imagusu::DesignSystem::FileUploadComponent.new(form: form, method: :document, label: "Document") %>
+<% end %>

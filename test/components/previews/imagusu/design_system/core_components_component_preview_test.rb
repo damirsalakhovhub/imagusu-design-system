@@ -8,8 +8,8 @@ class Imagusu::DesignSystem::CoreComponentsComponentPreviewTest < ViewComponent:
     render_preview(:default, from: Imagusu::DesignSystem::CoreComponentsComponentPreview)
 
     assert_selector "a.ids-link"
-    assert_selector ".ids-badge"
-    assert_selector ".ids-alert"
+    assert_selector ".ids-badge", text: "Ready"
+    assert_selector ".ids-alert__body", text: "Your changes are now visible."
     assert_selector ".ids-error-summary"
     assert_selector "article.ids-card"
   end

@@ -103,6 +103,14 @@ bin/setup
 bundle exec rake
 ```
 
+To view every component without Imagusu styles:
+
+```sh
+bin/components
+```
+
+Open `http://127.0.0.1:3000/gallery` for the unstyled gallery. The full Lookbook component browser is available at `http://127.0.0.1:3000/components`.
+
 The default task runs component tests, Standard Ruby, and a packaged-gem smoke test. Compatibility appraisals:
 
 ```sh

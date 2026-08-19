@@ -1,6 +1,6 @@
 <% Imagusu::DesignSystem::BadgeComponent::TONES.each do |tone| %>
-  <%= render Imagusu::DesignSystem::BadgeComponent.new(tone: tone) { tone.to_s.capitalize } %>
+  <%= render Imagusu::DesignSystem::BadgeComponent.new(tone: tone) do %><%= tone.to_s.capitalize %><% end %>
 <% end %>
 <% Imagusu::DesignSystem::AlertComponent::TONES.each do |tone| %>
-  <%= render Imagusu::DesignSystem::AlertComponent.new(title: tone.to_s.capitalize, tone: tone) { "Example #{tone} message." } %>
+  <%= render Imagusu::DesignSystem::AlertComponent.new(title: tone.to_s.capitalize, tone: tone) do %>Example <%= tone %> message.<% end %>
 <% end %>
