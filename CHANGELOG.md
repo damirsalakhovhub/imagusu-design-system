@@ -18,6 +18,7 @@ No IDS version has been published.
 
 ### Changed
 
+- Renamed the usable-but-changeable component lifecycle status from `experimental` to `preview`; its requirements are unchanged.
 - Removed unreleased Button `reset`, `title`, `autofocus`, and generic ARIA support before the first gem release.
 
 ### Removed

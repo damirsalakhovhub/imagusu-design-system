@@ -10,12 +10,12 @@ Button breadth is informed primarily by [Primer's current Button guidance](https
 
 ## Decision
 
-Maintain one ordered [component catalog](../components/catalog.md) with exactly one current family. Work starts with Button, then Text input, then Select. Move the current marker when the slices selected for that family's milestone are `experimental` or deliberately deferred with a recorded dependency or reason. Deferred interaction must not block the next family, and `stable` maturation continues independently. A planned catalog entry is not public API and does not require speculative code.
+Maintain one ordered [component catalog](../components/catalog.md) with exactly one current family. Work starts with Button, then Text input, then Select. Move the current marker when the slices selected for that family's milestone are `preview` or deliberately deferred with a recorded dependency or reason. Deferred interaction must not block the next family, and `stable` maturation continues independently. A planned catalog entry is not public API and does not require speculative code.
 
 Each component moves through four statuses:
 
 - `planned` — problem and expected native semantics are recorded; no API promise;
-- `experimental` — documented strict-local API, implementation, gallery state, deterministic tests, and any owned EN/RU strings ship together; breaking changes are still expected;
+- `preview` — documented strict-local API, implementation, gallery state, deterministic tests, and any owned EN/RU strings ship together; breaking changes are still expected;
 - `stable` — the core contract has compatibility, applicable browser/keyboard/assistive-technology/localization, and routed five-role evidence; a skin has its own stable status and evidence;
 - `deprecated` — replacement and migration path are documented.
 

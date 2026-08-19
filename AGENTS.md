@@ -50,7 +50,7 @@ Other work uses the smallest relevant set below. Documentation typos, test refac
 | Tests or gallery only | No review unless public coverage or behavior changes |
 | EN/RU translation with unchanged meaning | Automated parity only; add Architecture and Accessibility if meaning or the public contract changes |
 | Documentation | No review unless it changes a public contract or makes an evidence claim |
-| Experimental release | Architecture plus affected roles |
+| Preview release | Architecture plus affected roles |
 | Stable component or skin release | All five |
 
 If scope grows into a mandatory category, stop and add the missing reviewers before continuing.

@@ -1,6 +1,6 @@
 # Text field
 
-Status: experimental
+Status: preview
 
 ## Rendering
 

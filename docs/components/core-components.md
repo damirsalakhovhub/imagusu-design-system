@@ -1,6 +1,6 @@
 # Button
 
-Status: experimental
+Status: preview
 
 ## Rendering
 
@@ -36,7 +36,7 @@ Missing or unknown locals fail through Rails strict-locals enforcement.
 
 ## No-skin milestone
 
-The text Button core is complete at `experimental` status. It deliberately has no `variant`, `size`, or `width` locals: without CSS they would be dormant public API rather than behavior.
+The text Button core is complete at `preview` status. It deliberately has no `variant`, `size`, or `width` locals: without CSS they would be dormant public API rather than behavior.
 
 The remaining family is explicitly deferred:
 

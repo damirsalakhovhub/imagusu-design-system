@@ -2,7 +2,7 @@
 
 A small, server-rendered interface foundation for Ruby on Rails.
 
-IDS is experimental and intentionally unstyled. It owns semantic HTML, accessibility relationships, strict rendering contracts, and stable `ids-*` skin hooks. A separate skin may add tokens and CSS without changing core markup or behavior.
+IDS is in preview and intentionally unstyled. It owns semantic HTML, accessibility relationships, strict rendering contracts, and stable `ids-*` skin hooks. A separate skin may add tokens and CSS without changing core markup or behavior.
 
 ## Runtime
 
@@ -67,7 +67,7 @@ The partial accepts:
 
 Rails FormBuilder owns the control ID, name, bound value, nested scope, and error rerender. IDS owns the visible label, hint/error IDs, merged `aria-describedby`, conditional `aria-invalid`, DOM order, and hooks. Password values are never echoed.
 
-See [Button](docs/components/core-components.md) and [TextField](docs/components/form-controls.md) for complete experimental contracts. Components removed during the Rails-native reset are not public promises and return only for confirmed consumer needs.
+See [Button](docs/components/core-components.md) and [TextField](docs/components/form-controls.md) for complete preview contracts. Components removed during the Rails-native reset are not public promises and return only for confirmed consumer needs.
 
 The [component catalog](docs/components/catalog.md) records the ordered working program and marks finished evidence. The no-skin text Button milestone is complete; Text input is current, followed by Select. Deferred Button presentation and interaction return only with their recorded skin or behavior dependency.
 
@@ -107,7 +107,7 @@ The default task is the quick development loop: architecture policy, rendered co
 
 ## Status and releases
 
-No gem version has been published. Public paths, locals, markup, relationships, and hooks are experimental. Before 1.0, breaking changes require a minor version and release notes; patch releases remain backward compatible.
+No gem version has been published. Public paths, locals, markup, relationships, and hooks are in preview. Before 1.0, breaking changes require a minor version and release notes; patch releases remain backward compatible.
 
 RubyGems publication is prepared to use Trusted Publishing with GitHub OIDC and no long-lived API token.
 
