@@ -26,6 +26,8 @@ module IDS
     SHIPPED_FRONTEND_GLOBS = %w[
       app/**/*.{css,less,sass,scss}
       app/**/*.{cjs,js,jsx,mjs,ts,tsx}
+      lib/**/*.{css,less,sass,scss}
+      lib/**/*.{cjs,js,jsx,mjs,ts,tsx}
     ].freeze
     I18N_KEY_PATTERNS = [
       /I18n\.(?:t|translate)\s*(?:\(\s*|\s+)["']([^"']+)/,
@@ -99,7 +101,8 @@ module IDS
 
     def verify_renderer_dependencies(errors)
       declarations = %w[Gemfile Appraisals]
-      declarations.concat(relative_files("*.gemspec"))
+      gemspecs = relative_files("*.gemspec")
+      declarations.concat(gemspecs)
       declarations.concat(relative_files("gemfiles/*.gemfile"))
 
       forbidden = declarations.flat_map do |path|
@@ -111,7 +114,16 @@ module IDS
         ).flatten.map { |name| "#{name} in #{path}" }
       end
 
-      errors << "forbidden renderer dependencies: #{forbidden.sort.join(", ")}" if forbidden.any?
+      forbidden.concat(gemspecs.flat_map do |path|
+        specification = Gem::Specification.load(@root.join(path).to_s)
+        next [] unless specification
+
+        specification.dependencies.filter_map do |dependency|
+          "#{dependency.name} in #{path}" if FORBIDDEN_RENDERER_GEMS.include?(dependency.name)
+        end
+      end)
+
+      errors << "forbidden renderer dependencies: #{forbidden.uniq.sort.join(", ")}" if forbidden.any?
     end
 
     def verify_legacy_component_boundary(errors)

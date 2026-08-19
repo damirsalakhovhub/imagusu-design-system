@@ -4,7 +4,7 @@ require "test_helper"
 
 class Imagusu::DesignSystem::TextFieldViewTest < ActionView::TestCase
   def test_uses_the_native_form_builder_binding
-    object = FormComponentTestModel.new(email: "ada@example.com")
+    object = FormTestModel.new(email: "ada@example.com")
 
     render_text_field(form: form_builder(object), method: :email, label: "Email")
 
@@ -42,7 +42,7 @@ class Imagusu::DesignSystem::TextFieldViewTest < ActionView::TestCase
   end
 
   def test_uses_existing_model_errors_without_running_validation
-    object = FormComponentTestModel.new(email: "bound@example.com")
+    object = FormTestModel.new(email: "bound@example.com")
     object.errors.add(:email, "is invalid")
 
     render_text_field(form: form_builder(object), method: :email, label: "Email")
@@ -76,7 +76,7 @@ class Imagusu::DesignSystem::TextFieldViewTest < ActionView::TestCase
   end
 
   def test_password_never_echoes_the_bound_value
-    object = FormComponentTestModel.new(email: "secret")
+    object = FormTestModel.new(email: "secret")
 
     render_text_field(form: form_builder(object), method: :email, label: "Password", type: :password)
 
@@ -133,7 +133,7 @@ class Imagusu::DesignSystem::TextFieldViewTest < ActionView::TestCase
 
   PARTIAL = "imagusu/design_system/text_field"
 
-  def form_builder(object = FormComponentTestModel.new, object_name: :user, **options)
+  def form_builder(object = FormTestModel.new, object_name: :user, **options)
     ActionView::Helpers::FormBuilder.new(object_name, object, controller.view_context, options)
   end
 

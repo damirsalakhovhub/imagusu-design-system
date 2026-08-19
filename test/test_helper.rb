@@ -6,7 +6,7 @@ require_relative "dummy/config/environment"
 require "active_model"
 require "rails/test_help"
 
-class FormComponentTestModel
+class FormTestModel
   include ActiveModel::Model
 
   attr_accessor :email

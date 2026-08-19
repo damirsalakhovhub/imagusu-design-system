@@ -6,12 +6,12 @@ Automated controls are the source of truth for mechanically verifiable IDS invar
 
 | Invariant | Command | CI | Limitation |
 | --- | --- | --- | --- |
-| No unapproved runtime or forbidden renderer gem, `app/components`, enumerated frontend manifest/build config, CSS, or JavaScript | `ruby script/verify-policy` | `policy` job | The lists are finite and the script cannot protect a change that weakens itself; branch review must remain required |
+| No unapproved runtime or forbidden renderer dependency, `app/components`, enumerated frontend manifest/build config, or frontend file shipped from `app`/`lib` | `ruby script/verify-policy` | `policy` job | The lists are intentionally finite guardrails, not a parser or security sandbox for arbitrary Ruby |
 | Button/TextField strict locals, rendered semantics, relationships, escaping, and gallery route | `bundle exec rake test` | Compatibility matrix | Coverage is limited to written states and does not prove browser or assistive-technology behavior |
 | Ruby style | `bundle exec rake standard` | Compatibility matrix | Style is not architectural correctness |
-| Built gem installs and loads | `bundle exec rake package_smoke` | `package` job | Loading does not prove every packaged asset or locale works in a host |
+| Built gem installs, loads, includes both views, and contains no forbidden frontend or legacy component files | `bundle exec rake package_smoke` | `package` job | Loading does not prove every future packaged asset or locale works in a host |
 
-`bundle exec rake` runs the active local gates together.
+`bundle exec rake` is the fast local loop: policy, rendered tests, and style. `bundle exec rake verify` adds installed-package verification. The Ruby/Rails matrix remains a CI and pre-release concern rather than an every-edit requirement.
 
 ## Planned controls before stable status
 
@@ -46,8 +46,8 @@ Release evidence records the browser, operating system, assistive technology, ve
 
 When a new architecture, compatibility, accessibility, security, or performance rule is accepted:
 
-1. add the smallest deterministic control that can enforce it;
+1. add the smallest deterministic control when the invariant is important and can be enforced without disproportionate cost;
 2. add a negative test proving the control fails when violated;
-3. wire the control into the default local task and CI;
+3. put fast checks in the default local task; keep packaging, compatibility matrices, browser, and release checks in their appropriate CI or release stage;
 4. document what remains manual or unprovable;
 5. require an ADR change when weakening the control.

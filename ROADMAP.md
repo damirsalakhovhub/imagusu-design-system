@@ -4,7 +4,7 @@
 
 - Rails-native Engine packaging with `railties` as the only runtime dependency.
 - Strict-local Button and TextField partials proving leaf and FormBuilder-bound rendering.
-- Deterministic architecture, package, compatibility, localization, and rendered-contract gates.
+- Deterministic architecture, package, compatibility, and rendered-contract gates. Translation namespace checks are active; full localization evidence starts with the first IDS-owned string.
 - Plain no-CSS/no-JavaScript gallery.
 - Complete the planned HTML validation and automated accessibility controls.
 - Record manual keyboard and assistive-technology evidence before describing either component as stable.

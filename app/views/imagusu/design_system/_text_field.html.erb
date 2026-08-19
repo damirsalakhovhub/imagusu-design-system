@@ -1,7 +1,7 @@
 <%# locals: (form:, method:, label:, type: :text, hint: nil, errors: :auto, required: false, disabled: false, html_attributes: {}) %>
 <%
   types = %i[text email url tel search password]
-  helpers = {
+  field_helpers = {
     text: :text_field,
     email: :email_field,
     url: :url_field,
@@ -80,5 +80,5 @@
   <% unless messages.empty? %>
     <div id="<%= error_id %>" class="ids-field__error"><%= messages.join(". ") %></div>
   <% end %>
-  <%= form.public_send(helpers.fetch(normalized_type), normalized_method, **attributes) %>
+  <%= form.public_send(field_helpers.fetch(normalized_type), normalized_method, **attributes) %>
 </div>

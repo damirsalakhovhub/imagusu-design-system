@@ -21,6 +21,6 @@ bin/setup
 bundle exec rake
 ```
 
-The default task runs the architecture policy gate, tests, lint, and packaged-gem smoke verification. See `docs/quality/automated-controls.md` for active and planned evidence.
+The default task is the quick development loop: architecture policy, tests, and lint. Run `bundle exec rake verify` before a release or when packaging changes; CI runs the compatibility matrix and package smoke separately. See `docs/quality/automated-controls.md` for active and planned evidence.
 
 Keep commits focused. Add user-visible changes to `CHANGELOG.md`. Breaking changes before 1.0 require a minor version and migration notes.

@@ -25,6 +25,12 @@ class VerifyPolicyTest < Minitest::Test
     assert_empty verifier.errors
   end
 
+  def test_repository_matches_the_policy
+    repository_root = Pathname(__dir__).join("../..").expand_path
+
+    assert_empty IDS::PolicyVerifier.new(repository_root).errors
+  end
+
   def test_rejects_an_unapproved_runtime_dependency
     write("imagusu_design_system.gemspec", <<~RUBY)
       Gem::Specification.new do |spec|
@@ -77,6 +83,13 @@ class VerifyPolicyTest < Minitest::Test
       "frontend files cannot ship before an architecture decision: app/assets/javascripts/ids.js"
   end
 
+  def test_rejects_frontend_files_shipped_from_lib
+    write("lib/imagusu/design_system/ids.css", ".ids-button {}\n")
+
+    assert_includes verifier.errors,
+      "frontend files cannot ship before an architecture decision: lib/imagusu/design_system/ids.css"
+  end
+
   def test_rejects_a_new_legacy_component_file
     write("app/components/new_component.rb", "class NewComponent; end\n")
 
@@ -117,6 +130,21 @@ class VerifyPolicyTest < Minitest::Test
 
     assert_includes verifier.errors,
       "forbidden renderer dependencies: lookbook in imagusu_design_system.gemspec"
+  end
+
+  def test_rejects_a_renderer_dependency_assigned_through_a_variable
+    write("imagusu_design_system.gemspec", <<~RUBY)
+      renderer = "view_component"
+      Gem::Specification.new do |spec|
+        spec.name = "imagusu-design-system"
+        spec.version = "0.1.0"
+        spec.add_dependency "railties"
+        spec.add_development_dependency renderer
+      end
+    RUBY
+
+    assert_includes verifier.errors,
+      "forbidden renderer dependencies: view_component in imagusu_design_system.gemspec"
   end
 
   def test_rejects_an_unscoped_translation_key

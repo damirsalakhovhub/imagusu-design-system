@@ -89,7 +89,7 @@ Delete:
 
 Keep and adapt:
 
-- Rails Engine, package layout, Ruby/Rails compatibility matrix, release workflow, policy verifier, dummy app, `bin/components`, and package smoke;
+- Rails Engine, package layout, Ruby/Rails compatibility matrix, release workflow, policy verifier, dummy app, `bin/gallery`, and package smoke;
 - architecture, accessibility, localization, security, contribution, and automation contracts.
 
 Also:
@@ -103,7 +103,7 @@ Exit: active implementation and configuration contain no ViewComponent or Lookbo
 
 ### 5. Final deterministic gate
 
-- `bundle exec rake` passes policy, tests, Standard, and installed-package smoke.
+- `bundle exec rake verify` passes policy, tests, Standard, and installed-package smoke.
 - Rails 8.0/8.1 across Ruby 3.3/3.4/4.0 pass in GitHub Actions.
 - Built-gem inspection proves views and required Ruby files are packaged and legacy files are absent.
 - Every public gallery state passes HTML validation and automated accessibility scanning once those controls are installed.

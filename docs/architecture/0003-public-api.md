@@ -4,7 +4,7 @@ Status: accepted
 
 ## Decision
 
-Public API includes namespaced partial paths, strict locals, Rails FormBuilder integration, rendered semantics and DOM order, accepted attributes, class and state hooks, translation keys, future CSS variables, assets, configuration, and generators. Before 1.0, breaking changes ship only in minor releases with migration notes. Patch releases remain backward compatible.
+Public API includes only contracts that IDS actually ships and documents: namespaced partial paths, strict locals, Rails FormBuilder integration, rendered semantics and DOM order, accepted attributes, class and state hooks, and IDS-owned translation keys when they exist. CSS variables, assets, configuration, and generators are not public API until a concrete consumer requires them and a later decision introduces them. Before 1.0, breaking changes ship only in minor releases with migration notes. Patch releases remain backward compatible.
 
 ## Consequences
 

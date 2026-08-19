@@ -13,9 +13,14 @@ gem_home="$package_dir/gems"
 env -i HOME="$HOME" PATH="$PATH" GEM_HOME="$gem_home" GEM_PATH="$gem_home" gem install "$gem_file" --no-document >/dev/null
 
 (cd "$package_dir" && env -i HOME="$HOME" PATH="$PATH" GEM_HOME="$gem_home" GEM_PATH="$gem_home" ruby "$repo_root/script/package-smoke-host.rb")
-gem specification "$gem_file" files --yaml | grep -q "app/views/imagusu/design_system/_button.html.erb"
-gem specification "$gem_file" files --yaml | grep -q "app/views/imagusu/design_system/_text_field.html.erb"
-if gem specification "$gem_file" files --yaml | grep -q "app/components/"; then
+package_files="$(gem specification "$gem_file" files --yaml)"
+grep -q "app/views/imagusu/design_system/_button.html.erb" <<<"$package_files"
+grep -q "app/views/imagusu/design_system/_text_field.html.erb" <<<"$package_files"
+if grep -q "app/components/" <<<"$package_files"; then
   echo "built gem contains forbidden app/components files" >&2
+  exit 1
+fi
+if grep -Eq '\.(css|less|sass|scss|cjs|js|jsx|mjs|ts|tsx)$' <<<"$package_files"; then
+  echo "built gem contains frontend files before the frontend-boundary ADR allows them" >&2
   exit 1
 fi

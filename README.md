@@ -74,19 +74,20 @@ See [Button](docs/components/core-components.md) and [TextField](docs/components
 ```sh
 bin/setup
 bundle exec rake
-bin/components
+bin/gallery
 ```
 
 Open `http://127.0.0.1:3000/gallery`. The gallery is an ordinary dummy Rails route with no CSS, JavaScript, or documentation framework.
 
-Compatibility checks:
+Full package verification and compatibility checks, normally left to CI or run before a release:
 
 ```sh
+bundle exec rake verify
 bundle exec appraisal rails-8-0 rake
 bundle exec appraisal rails-8-1 rake
 ```
 
-The default task runs the architecture policy, rendered contracts, Standard, and an isolated installed-gem smoke test. See [automated controls](docs/quality/automated-controls.md) and [architecture decisions](docs/architecture).
+The default task is the quick development loop: architecture policy, rendered contracts, and Standard. `rake verify` adds the isolated installed-gem smoke test. See [automated controls](docs/quality/automated-controls.md) and [architecture decisions](docs/architecture).
 
 ## Status and releases
 

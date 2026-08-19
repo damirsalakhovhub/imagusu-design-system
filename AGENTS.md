@@ -14,7 +14,7 @@ Use Rails and browser primitives directly. Add an abstraction or dependency only
 - Never read, compare, import, adapt, or copy anything from `/Users/damirsalakhov/imagusu`.
 - Do not infer what DHH or 37signals would approve. Separate published guidance, observed public code, IDS decisions, and inference.
 - Do not add a component framework, internal rendering DSL, slots framework, build step, or runtime dependency without a superseding architecture decision and measured justification.
-- Do not put product styling into the foundation. Core CSS is limited to behavior and accessibility that cannot safely be left to a skin.
+- Version 0.1 ships no CSS or JavaScript. Adding either requires a superseding frontend-boundary ADR with a concrete consumer need.
 - ViewComponent, Lookbook, `app/components/**`, a component base class, and compatibility renderers are prohibited by ADR 0006. Public rendering uses namespaced strict-local partials under `app/views/imagusu/design_system/`.
 
 ## Ownership model
@@ -29,27 +29,28 @@ Five roles guard material work:
 4. [Performance and Browser Platform Reviewer](agents/roles/performance.md)
 5. [37signals Philosophy and Evidence Checker](agents/roles/37signals.md)
 
-## Mandatory review
+## Risk-based review
 
-All five roles must review:
+IDS is in private-consumer incubation. Use reviewers to challenge risky decisions, not as ceremony for every edit. The primary agent may make a small, reversible change when deterministic tests cover it and the public contract does not change.
 
-- a new or materially changed component;
-- a public rendering API or skin contract;
-- a dependency, build-tool, JavaScript, or asset-boundary change;
-- a compatibility or architecture decision;
-- a release containing any of the above.
+All five roles review only:
 
-Small changes use the routing table. A documentation typo with no contract effect needs no council review.
+- a renderer architecture, runtime dependency, build step, JavaScript, or frontend-boundary decision;
+- a release that declares a component or skin stable.
+
+Other work uses the smallest relevant set below. Documentation typos, test refactors that preserve coverage, gallery copy, and internal renames need no council review.
 
 | Change | Required roles |
 | --- | --- |
-| New or changed component | All five |
-| Public API, Engine integration, compatibility, release | All five |
-| HTML, form, ARIA, focus, or interaction | All five for a public component; otherwise Architecture, Accessibility, Performance |
-| Core CSS or skin contract | All five |
-| Runtime dependency or build step | All five |
-| Tests or gallery only | Architecture; add the role whose contract is exercised |
-| Documentation of public behavior | Architecture, 37signals; add Accessibility for accessibility claims |
+| New component or public state | Architecture, Accessibility; add Simplicity for a new abstraction and Performance for interaction, assets, or collection hot paths |
+| Public API or Engine integration | Architecture; add the role whose contract changes |
+| Other architecture decision | Architecture, 37signals; add the role whose boundary changes |
+| HTML, form, ARIA, focus, or interaction | Accessibility; add Architecture when public markup or locals change |
+| Runtime dependency, build step, JavaScript, or frontend boundary | All five |
+| Tests or gallery only | No review unless public coverage or behavior changes |
+| Documentation | No review unless it changes a public contract or makes an evidence claim |
+| Experimental release | Architecture plus affected roles |
+| Stable component or skin release | All five |
 
 If scope grows into a mandatory category, stop and add the missing reviewers before continuing.
 
@@ -59,13 +60,13 @@ Run reviews in parallel waves. Do not wait for one role before starting another 
 
 ### 1. Preflight
 
-Before implementation, run Architecture and 37signals in parallel. They confirm that the problem is real, the public boundary is small, Rails/browser primitives were considered first, and the direction is supported by evidence rather than imitation.
+When the routing table requires preflight, run Architecture first and add 37signals only for an architecture, dependency, or philosophy claim. They confirm that the problem is real, the public boundary is small, Rails/browser primitives were considered first, and the direction is supported by evidence rather than imitation.
 
 Add Accessibility to this preflight for a new or materially changed component, form, ARIA or focus contract, interaction, or skin contract. Accessibility defines acceptance criteria before the public interaction model is fixed, then reviews their implementation again in the diff wave.
 
 ### 2. Diff review
 
-After a working diff exists, run Simplicity, Accessibility, and Performance in parallel. They review only the changed contract and directly affected code.
+After a working diff exists, run only the roles selected by the routing table, in parallel. They review the changed contract and directly affected code.
 
 ### 3. Resolution
 
@@ -73,7 +74,7 @@ The primary agent resolves blockers, reruns relevant verification, and asks only
 
 ### 4. Final gate
 
-Architecture verifies the final public API and compatibility. The primary agent may complete the task only when every required role reports `PASS`, or `NOT_APPLICABLE` with a concrete reason.
+Architecture verifies a changed public API or compatibility boundary. The primary agent may complete the task when every routed role reports `PASS`, or `NOT_APPLICABLE` with a concrete reason.
 
 ## Shared review rules
 
@@ -115,13 +116,13 @@ Omit empty items except `BLOCKERS`, which must say `none` for a passing review.
 
 ## Completion rule
 
-For material changes, the final report must list the five role verdicts and the verification run. Accessibility and performance claims must describe the actual evidence; installing IDS cannot by itself make a consuming application accessible or guarantee its Core Web Vitals.
+For reviewed changes, the final report lists the routed role verdicts and verification run. Accessibility and performance claims must describe the actual evidence; installing IDS cannot by itself make a consuming application accessible or guarantee its Core Web Vitals.
 
 ## Automation outranks review
 
 An agent verdict never substitutes for a deterministic check. If a rule can be enforced reliably by a test, script, linter, package check, or CI assertion, add that control with the rule. A reviewer may interpret evidence and find gaps, but may not waive a failing automated gate.
 
-Every material completion report must separate:
+Every completion report that makes a quality or compatibility claim must separate:
 
 - automated checks that ran and passed;
 - manual checks that were actually performed;

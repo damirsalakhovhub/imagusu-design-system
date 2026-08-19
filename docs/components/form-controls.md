@@ -49,6 +49,8 @@ IDS owns:
 
 The visible label is the accessible name. Consumer overrides of ID, name, type, class, value state, `aria-label`, `aria-labelledby`, `aria-invalid`, and other IDS-owned state are rejected.
 
+Hooks identify their elements; direct-child relationships are not part of the skin contract. In particular, a host application's standard `field_error_proc` may wrap `input.ids-input` in `.field_with_errors`. Skins must target the hook itself rather than require `.ids-field > .ids-input`.
+
 With `errors: :auto`, IDS reads existing `form.object.errors` and does not run validation. The consuming form owns server-side validation, authorization, an error summary, focus after failed submission, and dynamic announcements. Inline errors are not live regions by default.
 
 ## Evidence boundary
