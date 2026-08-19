@@ -19,6 +19,11 @@ abort "packaged gem has unexpected runtime dependencies: #{runtime_dependencies.
 abort "ViewComponent loaded in isolated host" if Gem.loaded_specs.key?("view_component")
 abort "Lookbook loaded in isolated host" if Gem.loaded_specs.key?("lookbook")
 
+locale_filenames = I18n.load_path.map { |path| File.basename(path) }
+%w[imagusu_design_system.en.yml imagusu_design_system.ru.yml].each do |filename|
+  abort "packaged locale is not discoverable: #{filename}" unless locale_filenames.include?(filename)
+end
+
 view_context = Class.new(ActionController::Base).new.view_context
 native_button = view_context.render(
   partial: "imagusu/design_system/button",

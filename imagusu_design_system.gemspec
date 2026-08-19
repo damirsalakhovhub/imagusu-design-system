@@ -24,6 +24,7 @@ Gem::Specification.new do |spec|
 
   spec.files = Dir[
     "app/**/*",
+    "config/locales/**/*",
     "lib/**/*",
     "CHANGELOG.md",
     "LICENSE.txt",

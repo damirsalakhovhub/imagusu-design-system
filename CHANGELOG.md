@@ -11,8 +11,9 @@ No IDS version has been published.
 - Rails Engine packaging, Ruby/Rails compatibility matrix, isolated package smoke test, and OIDC release workflow.
 - Rails-native strict-local Button and TextField partials.
 - Plain component gallery, accessibility contracts, localization boundary, and deterministic architecture policy.
+- Ordered component program, proportional testing guide, repo-local workflow skill, and packaged English/Russian locale namespaces.
 
 ### Removed
 
 - Unreleased ViewComponent and Lookbook experiment.
-- Unreleased component catalog beyond Button and TextField; deferred components return only for confirmed consumer needs.
+- Unreleased ViewComponent implementations beyond Button and TextField; deferred components return only through the Rails-native program.
