@@ -48,6 +48,7 @@ Other work uses the smallest relevant set below. Documentation typos, test refac
 | HTML, form, ARIA, focus, or interaction | Accessibility; add Architecture when public markup or locals change |
 | Runtime dependency, build step, JavaScript, or frontend boundary | All five |
 | Tests or gallery only | No review unless public coverage or behavior changes |
+| EN/RU translation with unchanged meaning | Automated parity only; add Architecture and Accessibility if meaning or the public contract changes |
 | Documentation | No review unless it changes a public contract or makes an evidence claim |
 | Experimental release | Architecture plus affected roles |
 | Stable component or skin release | All five |
@@ -130,3 +131,11 @@ Every completion report that makes a quality or compatibility claim must separat
 - behavior that cannot be proven automatically.
 
 Do not describe a planned check, an agent inspection, or an automated accessibility scan as proof of complete correctness or accessibility.
+
+## Component program
+
+For component work, follow the ordered catalog and the repo-local [`ids-component-program`](.agents/skills/ids-component-program/SKILL.md) skill. The skill routes this policy; it does not supersede it. Component lifecycle, proportional tests, and completion marks live in:
+
+- [`docs/components/catalog.md`](docs/components/catalog.md);
+- [`docs/process/component-development.md`](docs/process/component-development.md);
+- [`docs/quality/component-testing.md`](docs/quality/component-testing.md).

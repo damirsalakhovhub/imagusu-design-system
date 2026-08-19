@@ -97,6 +97,18 @@ class Imagusu::DesignSystem::TextFieldViewTest < ActionView::TestCase
     assert_select "b, script", count: 0
   end
 
+  def test_renders_consumer_owned_unicode_copy
+    render_text_field(
+      form: form_builder,
+      method: :email,
+      label: "Электронная почта",
+      hint: "Мы не передаём адрес третьим лицам"
+    )
+
+    assert_select "label.ids-field__label", text: "Электронная почта"
+    assert_select ".ids-field__hint", text: "Мы не передаём адрес третьим лицам"
+  end
+
   def test_rejects_invalid_contracts_and_owned_attributes
     assert_raises(ActionView::Template::Error) { render_text_field(form: nil, method: :email, label: "Email") }
     assert_raises(ActionView::Template::Error) { render_text_field(form: form_builder, method: :email, label: " ") }

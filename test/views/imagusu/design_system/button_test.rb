@@ -34,6 +34,12 @@ class Imagusu::DesignSystem::ButtonViewTest < ActionView::TestCase
     assert_select 'button[title="\" unsafe"]'
   end
 
+  def test_renders_consumer_owned_unicode_content
+    render_button(content: "Сохранить")
+
+    assert_select "button.ids-button", text: "Сохранить"
+  end
+
   def test_rejects_invalid_or_owned_input
     assert_raises(ActionView::Template::Error) { render_button(content: " ") }
     assert_raises(ActionView::Template::Error) { render_button(content: "Save", type: :link) }

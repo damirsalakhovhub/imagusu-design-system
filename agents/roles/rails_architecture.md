@@ -42,7 +42,7 @@ Block when a change:
 - adds public options without a confirmed consumer;
 - relies on implicit view state or undocumented DOM behavior;
 - breaks compatibility without an explicit migration and versioning decision;
-- adds new ViewComponent implementation instead of advancing the approved migration.
+- reintroduces ViewComponent, another component framework, or a compatibility renderer contrary to ADR 0006.
 
 ## Not a blocker
 
