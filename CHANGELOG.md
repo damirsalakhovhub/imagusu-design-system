@@ -2,16 +2,17 @@
 
 All notable changes follow [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+No IDS version has been published.
 
-## [0.1.0] - 2026-08-19
+## [Unreleased]
 
 ### Added
 
-- Rails Engine and ViewComponent 4 foundation.
-- Experimental server-rendered button component.
-- Rails 8.0/8.1 compatibility matrix and package smoke checks.
-- OIDC-based RubyGems release workflow.
+- Rails Engine packaging, Ruby/Rails compatibility matrix, isolated package smoke test, and OIDC release workflow.
+- Rails-native strict-local Button and TextField partials.
+- Plain component gallery, accessibility contracts, localization boundary, and deterministic architecture policy.
 
-[Unreleased]: https://github.com/damirsalakhovhub/imagusu-design-system/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/damirsalakhovhub/imagusu-design-system/releases/tag/v0.1.0
+### Removed
+
+- Unreleased ViewComponent and Lookbook experiment.
+- Unreleased component catalog beyond Button and TextField; deferred components return only for confirmed consumer needs.

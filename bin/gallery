@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$repo_root"
+
+bundle check || bundle install
+
+exec bundle exec rackup test/dummy/config.ru --host 127.0.0.1 --port "${PORT:-3000}" --server puma

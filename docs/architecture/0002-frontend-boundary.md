@@ -4,7 +4,7 @@ Status: accepted
 
 ## Decision
 
-Version 0.1 ships no CSS or JavaScript. Future CSS must be browser-ready, namespaced, and independent of the consumer's Propshaft, Sprockets, Tailwind, or bundler choice. Runtime JavaScript requires a separate explicit decision.
+Version 0.1 ships no CSS or JavaScript. Components expose namespaced `ids-*` class hooks and `data-state` tokens as public styling contracts. Future CSS must be browser-ready, namespaced, and independent of the consumer's Propshaft, Sprockets, Tailwind, or bundler choice. Runtime JavaScript requires a separate explicit decision.
 
 ## Consequences
 

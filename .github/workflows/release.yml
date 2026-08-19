@@ -25,8 +25,6 @@ jobs:
             gemfile: gemfiles/rails_8_1.gemfile
           - ruby: "4.0"
             gemfile: gemfiles/rails_8_1.gemfile
-          - ruby: "3.3"
-            gemfile: gemfiles/rails_8_0_view_component_4_0.gemfile
     runs-on: ubuntu-latest
     env:
       BUNDLE_GEMFILE: ${{ matrix.gemfile }}

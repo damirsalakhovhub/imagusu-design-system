@@ -3,8 +3,11 @@
 ENV["RAILS_ENV"] ||= "test"
 
 require_relative "dummy/config/environment"
+require "active_model"
 require "rails/test_help"
-require "view_component/test_helpers"
 
-class ApplicationController < ActionController::Base
+class FormTestModel
+  include ActiveModel::Model
+
+  attr_accessor :email
 end

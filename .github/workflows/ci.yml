@@ -9,7 +9,19 @@ permissions:
   contents: read
 
 jobs:
+  policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b # v1
+        with:
+          ruby-version: "3.4"
+      - run: ruby script/verify-policy
+
   test:
+    needs: policy
     strategy:
       fail-fast: false
       matrix:
@@ -32,9 +44,6 @@ jobs:
           - ruby: "4.0"
             appraisal: rails-8-1
             gemfile: gemfiles/rails_8_1.gemfile
-          - ruby: "3.3"
-            appraisal: rails-8-0-view-component-4-0
-            gemfile: gemfiles/rails_8_0_view_component_4_0.gemfile
     runs-on: ubuntu-latest
     name: Ruby ${{ matrix.ruby }} / ${{ matrix.appraisal }}
     env:
@@ -50,6 +59,7 @@ jobs:
       - run: bundle exec rake test standard
 
   package:
+    needs: policy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6

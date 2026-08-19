@@ -1,0 +1,26 @@
+<%# locals: (content:, type: :button, disabled: false, html_attributes: {}) %>
+<%
+  normalized_type = type.respond_to?(:to_sym) ? type.to_sym : type
+
+  raise ArgumentError, "content must not be empty" if content.to_s.strip.empty?
+  raise ArgumentError, "content must be plain text" if content.respond_to?(:html_safe?) && content.html_safe?
+  unless normalized_type == :button || normalized_type == :submit || normalized_type == :reset
+    raise ArgumentError, "type must be one of: button, submit, reset"
+  end
+  raise ArgumentError, "disabled must be true or false" unless disabled == true || disabled == false
+
+  attributes = if html_attributes.is_a?(Hash) && html_attributes.empty?
+    {}
+  else
+    Imagusu::DesignSystem::Internal::HTMLAttributes.normalize(
+      html_attributes,
+      allowed: %i[id name value form title autofocus data],
+      owned_aria: %i[disabled hidden label labelledby],
+      owner: "button"
+    )
+  end
+  attributes[:class] = "ids-button"
+  attributes[:type] = normalized_type
+  attributes[:disabled] = disabled
+%>
+<%= tag.button(content, **attributes) %>

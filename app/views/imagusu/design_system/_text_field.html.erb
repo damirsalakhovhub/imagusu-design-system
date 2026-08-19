@@ -1,0 +1,84 @@
+<%# locals: (form:, method:, label:, type: :text, hint: nil, errors: :auto, required: false, disabled: false, html_attributes: {}) %>
+<%
+  types = %i[text email url tel search password]
+  field_helpers = {
+    text: :text_field,
+    email: :email_field,
+    url: :url_field,
+    tel: :telephone_field,
+    search: :search_field,
+    password: :password_field
+  }
+  normalized_type = type.respond_to?(:to_sym) ? type.to_sym : type
+  normalized_method = method.respond_to?(:to_sym) ? method.to_sym : method
+
+  raise ArgumentError, "type must be one of: #{types.join(", ")}" unless types.include?(normalized_type)
+  raise ArgumentError, "form must be a Rails FormBuilder" unless form.is_a?(ActionView::Helpers::FormBuilder)
+  raise ArgumentError, "method must not be empty" if normalized_method.nil? || normalized_method.to_s.strip.empty?
+  raise ArgumentError, "label must not be empty" if label.to_s.strip.empty?
+  raise ArgumentError, "label must be plain text" if label.respond_to?(:html_safe?) && label.html_safe?
+  if hint.respond_to?(:html_safe?) && hint.html_safe?
+    raise ArgumentError, "hint must be plain text"
+  end
+  raise ArgumentError, "required must be true or false" unless [true, false].include?(required)
+  raise ArgumentError, "disabled must be true or false" unless [true, false].include?(disabled)
+
+  normalized_hint = hint.to_s unless hint.nil? || hint.to_s.empty?
+  messages = if errors == :auto
+    if form.respond_to?(:object) && form.object.respond_to?(:errors)
+      form.object.errors.full_messages_for(normalized_method)
+    else
+      []
+    end
+  elsif errors.nil? || errors == false
+    []
+  elsif errors.is_a?(String) || errors.is_a?(Array)
+    Array(errors)
+  else
+    raise ArgumentError, "errors must be :auto, false, nil, a String, or an Array"
+  end
+  if messages.compact.any? { |message| message.respond_to?(:html_safe?) && message.html_safe? }
+    raise ArgumentError, "errors must be plain text"
+  end
+  messages = messages.compact.map(&:to_s).reject(&:empty?)
+
+  attributes = Imagusu::DesignSystem::Internal::HTMLAttributes.normalize(
+    html_attributes,
+    allowed: %i[autocomplete autofocus data form inputmode list maxlength minlength pattern placeholder readonly size spellcheck],
+    owned_aria: %i[checked disabled hidden invalid label labelledby readonly required selected],
+    owner: "text field"
+  )
+  normalized_aria = attributes.fetch(:aria)
+
+  control_id = form.field_id(normalized_method).to_s
+  raise ArgumentError, "form generated an empty field id" if control_id.empty?
+
+  hint_id = "#{control_id}-hint" if normalized_hint
+  error_id = "#{control_id}-error" unless messages.empty?
+  external_descriptions = Array(normalized_aria.delete(:describedby)).flat_map { |value| value.to_s.split }
+  descriptions = (external_descriptions + [hint_id, error_id]).compact.uniq
+  normalized_aria[:describedby] = descriptions.join(" ") unless descriptions.empty?
+  normalized_aria[:invalid] = "true" unless messages.empty?
+
+  states = []
+  states << "invalid" unless messages.empty?
+  states << "required" if required
+  states << "disabled" if disabled
+  states << "default" if states.empty?
+
+  attributes[:id] = control_id
+  attributes[:class] = "ids-input"
+  attributes[:required] = required
+  attributes[:disabled] = disabled
+  attributes[:aria] = normalized_aria
+%>
+<div class="ids-field" data-state="<%= states.join(" ") %>">
+  <%= tag.label(label, for: control_id, class: "ids-field__label") %>
+  <% if normalized_hint %>
+    <div id="<%= hint_id %>" class="ids-field__hint"><%= normalized_hint %></div>
+  <% end %>
+  <% unless messages.empty? %>
+    <div id="<%= error_id %>" class="ids-field__error"><%= messages.join(". ") %></div>
+  <% end %>
+  <%= form.public_send(field_helpers.fetch(normalized_type), normalized_method, **attributes) %>
+</div>
