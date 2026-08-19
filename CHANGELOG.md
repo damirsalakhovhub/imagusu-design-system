@@ -14,6 +14,7 @@ No IDS version has been published.
 - Ordered component program, proportional testing guide, repo-local workflow skill, and packaged English/Russian locale namespaces.
 - Completed the no-skin text Button milestone with a smaller action/submit and descriptive-ARIA contract.
 - Applied the system font stack to the development gallery without shipping a skin.
+- Added a blue IDS favicon to the development gallery.
 
 ### Changed
 
