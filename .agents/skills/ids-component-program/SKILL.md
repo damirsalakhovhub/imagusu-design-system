@@ -39,5 +39,6 @@ Build one complete vertical slice at a time. This skill orchestrates project rul
 3. Resolve routed reviewer blockers; reviewer opinions never waive automation.
 4. Update the catalog marks, status, contract, and evidence in the same change.
 5. Report automated checks, manual checks, planned checks, and unprovable behavior separately.
+6. Include the verified **View result** link required by `AGENTS.md`; start the gallery for UI work instead of returning a dead local URL.
 
 Never mark a component `stable` because an agent says `PASS`. Stable status requires the contract's recorded release evidence and all five routed roles.

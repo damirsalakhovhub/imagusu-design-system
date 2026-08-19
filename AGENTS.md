@@ -119,6 +119,15 @@ Omit empty items except `BLOCKERS`, which must say `none` for a passing review.
 
 For reviewed changes, the final report lists the routed role verdicts and verification run. Accessibility and performance claims must describe the actual evidence; installing IDS cannot by itself make a consuming application accessible or guarantee its Core Web Vitals.
 
+Every user-facing completion report must include a verified clickable **View result** link:
+
+- UI/component work — start and verify the local gallery or preview, then link its exact URL;
+- documentation or code-only work — link the most relevant local file using its absolute path;
+- published GitHub work — link the PR, commit, release, or Actions run;
+- work with no renderable artifact — link the closest inspectable evidence and say plainly what cannot be viewed yet.
+
+Do not invent a URL or link to a preview that is not running. When a requested preview cannot be started, state the blocker and link its source or instructions instead.
+
 ## Automation outranks review
 
 An agent verdict never substitutes for a deterministic check. If a rule can be enforced reliably by a test, script, linter, package check, or CI assertion, add that control with the rule. A reviewer may interpret evidence and find gaps, but may not waive a failing automated gate.
