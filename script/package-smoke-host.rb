@@ -2,6 +2,8 @@
 
 require "rails"
 require "action_controller/railtie"
+require "propshaft"
+require "propshaft/railtie"
 require "imagusu/design_system"
 
 class PackageSmokeApplication < Rails::Application
@@ -14,6 +16,20 @@ end
 PackageSmokeApplication.initialize!
 PackageSmokeApplication.eager_load!
 
+logical_stylesheet = "imagusu_design_system/skins/default.css"
+stylesheet_asset = PackageSmokeApplication.assets.load_path.find(logical_stylesheet)
+abort "packaged default skin is not discoverable by Propshaft" unless stylesheet_asset
+
+PackageSmokeApplication.assets.processor.process
+digested_stylesheet = stylesheet_asset.digested_path.to_s
+compiled_stylesheet = PackageSmokeApplication.config.assets.output_path.join(digested_stylesheet)
+abort "Propshaft did not write the digested default skin" unless compiled_stylesheet.file?
+
+manifest_entry = Propshaft::Manifest.from_path(PackageSmokeApplication.config.assets.manifest_path)[logical_stylesheet]
+unless manifest_entry&.digested_path == digested_stylesheet
+  abort "Propshaft manifest does not map the default skin to its digest"
+end
+
 runtime_dependencies = Gem.loaded_specs.fetch("imagusu_design_system").runtime_dependencies.map(&:name).sort
 abort "packaged gem has unexpected runtime dependencies: #{runtime_dependencies.join(", ")}" unless runtime_dependencies == ["railties"]
 abort "ViewComponent loaded in isolated host" if Gem.loaded_specs.key?("view_component")
@@ -25,6 +41,12 @@ locale_filenames = I18n.load_path.map { |path| File.basename(path) }
 end
 
 view_context = Class.new(ActionController::Base).new.view_context
+stylesheet_tag = view_context.stylesheet_link_tag("imagusu_design_system/skins/default")
+unless stylesheet_tag.scan(%r{<link\b}).one? &&
+    stylesheet_tag.include?(%(/assets/#{digested_stylesheet})) &&
+    !stylesheet_tag.include?("<script")
+  abort "packaged default skin did not produce one digested stylesheet link"
+end
 native_button = view_context.render(
   partial: "imagusu/design_system/button",
   locals: {content: "Native package smoke", type: :submit}

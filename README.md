@@ -2,13 +2,14 @@
 
 A small, server-rendered interface foundation for Ruby on Rails.
 
-IDS is in preview and currently ships unstyled. It owns semantic HTML, accessibility relationships, strict rendering contracts, and stable `ids-*` skin hooks. A future optional default skin may add tokens and CSS without changing core markup or behavior.
+IDS is in preview. It owns semantic HTML, accessibility relationships, strict rendering contracts, stable `ids-*` hooks, and one optional default skin. Core remains usable when the skin is omitted.
 
 ## Runtime
 
 - Ruby 3.3, 3.4, or 4.0;
 - Rails 8.0 or 8.1;
-- no component framework, shipped CSS, JavaScript, frontend toolchain, routes, models, or database yet.
+- no component framework, JavaScript, frontend toolchain, routes, models, or database;
+- one optional plain-CSS skin with no runtime loader or build step.
 
 The only runtime dependency is `railties`.
 
@@ -32,15 +33,16 @@ IDS exposes ordinary namespaced Rails partials with strict locals:
   content: "Save",
   type: :submit,
   disabled: false,
+  variant: :primary,
   html_attributes: {
     form: "profile-form",
     data: { action: "profile#save" }
   } %>
 ```
 
-`content:` is required nonblank plain text. `type:` accepts `:button` or `:submit`. `disabled:` is a strict boolean. Supported HTML attributes are `id`, `name`, `value`, `form`, `data`, `aria-describedby`, and `aria-details`.
+`content:` is required nonblank plain text. `type:` accepts `:button` or `:submit`. `disabled:` is a strict boolean. Visual locals are `variant:` (`:secondary`, `:primary`, `:plain`, `:danger`), `size:` (`:medium`, `:small`, `:large`), and `width:` (`:auto`, `:full`). Supported HTML attributes are `id`, `name`, `value`, `form`, `data`, `aria-describedby`, and `aria-details`.
 
-The visible content is the accessible name. IDS rejects stateful or name-changing ARIA, consumer classes, and conflicting disabled state. Hook: `ids-button`. Visual variants and related button patterns remain planned until their skin or behavior dependency is real.
+The visible content is the accessible name. IDS rejects stateful or name-changing ARIA, consumer classes, and conflicting disabled state. `danger` changes presentation only and never adds confirmation behavior.
 
 ## Text field
 
@@ -69,11 +71,28 @@ Rails FormBuilder owns the control ID, name, bound value, nested scope, and erro
 
 See [Button](docs/components/core-components.md) and [TextField](docs/components/form-controls.md) for complete preview contracts. Components removed during the Rails-native reset are not public promises and return only for confirmed consumer needs.
 
-The [component catalog](docs/components/catalog.md) records the ordered working program and marks finished evidence. The no-skin text Button milestone is complete; Text input is current, followed by Select. Deferred Button presentation and interaction return only with their recorded skin or behavior dependency.
+The [component catalog](docs/components/catalog.md) records the ordered working program and marks finished evidence. Button core and its default skin are at `preview`; Text input is current, followed by Select. Deferred Button semantics such as icon, toggle, menu, and loading behavior return only with their recorded dependencies.
 
-## Planned default skin
+## Optional default skin
 
-[ADR 0008](docs/architecture/0008-optional-default-skin.md) fixes the direction without shipping CSS yet: one default plain-CSS skin in this gem, explicitly loaded by the host, with core remaining useful when it is omitted. The proposed first brand surface is limited to paired accent and danger foreground/background colours. Exact paths and token names become public only when the Button skin ships with its tests and package evidence. See the [delivery plan](docs/plans/default-skin.md).
+Load the one browser-ready asset explicitly:
+
+```erb
+<%= stylesheet_link_tag "imagusu_design_system/skins/default", "data-turbo-track": "reload" %>
+```
+
+Override only paired accent and danger values when a small brand adjustment is needed:
+
+```css
+.your-brand-scope {
+  --ids-color-accent: #0f766e;
+  --ids-color-on-accent: #ffffff;
+  --ids-color-danger: #9f1239;
+  --ids-color-on-danger: #ffffff;
+}
+```
+
+IDS tests its bundled colour pairs; it does not certify arbitrary themes or host pages. The theme author owns the contrast of custom pairs and host backgrounds. See [ADR 0008](docs/architecture/0008-optional-default-skin.md) and the [skin plan](docs/plans/default-skin.md).
 
 ## Localization
 
@@ -97,7 +116,7 @@ bundle exec rake
 bin/gallery
 ```
 
-Open `http://127.0.0.1:3000/gallery`. The gallery is an ordinary dummy Rails route with only preview-local font/favicon styling and no shipped skin, JavaScript, or documentation framework.
+Open `http://127.0.0.1:3000/gallery`. The gallery explicitly loads the shipped default skin through Propshaft and adds only preview-local layout/favicon styling. It has no JavaScript or documentation framework.
 
 Full package verification and compatibility checks, normally left to CI or run before a release:
 

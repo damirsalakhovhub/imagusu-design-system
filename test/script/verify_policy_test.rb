@@ -76,6 +76,26 @@ class VerifyPolicyTest < Minitest::Test
       "frontend files require an approved implementation gate: app/assets/stylesheets/ids.css"
   end
 
+  def test_accepts_the_approved_default_skin
+    write("app/assets/stylesheets/imagusu_design_system/skins/default.css", ".ids-button {}\n")
+
+    assert_empty verifier.errors
+  end
+
+  def test_rejects_imports_in_the_approved_default_skin
+    path = "app/assets/stylesheets/imagusu_design_system/skins/default.css"
+    write(path, "@import 'elsewhere.css';\n")
+
+    assert_includes verifier.errors, "approved stylesheet cannot use @import: #{path}"
+  end
+
+  def test_rejects_urls_in_the_approved_default_skin
+    path = "app/assets/stylesheets/imagusu_design_system/skins/default.css"
+    write(path, ".ids-button { background: url('remote.svg'); }\n")
+
+    assert_includes verifier.errors, "approved stylesheet cannot use external or embedded URLs: #{path}"
+  end
+
   def test_rejects_asset_pipeline_javascript_without_an_implementation_gate
     write("app/assets/javascripts/ids.js", "export {}\n")
 

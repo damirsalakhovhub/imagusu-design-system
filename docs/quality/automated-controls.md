@@ -6,12 +6,13 @@ Automated controls are the source of truth for mechanically verifiable IDS invar
 
 | Invariant | Command | CI | Limitation |
 | --- | --- | --- | --- |
-| No unapproved runtime or forbidden renderer dependency, `app/components`, enumerated frontend manifest/build config, or frontend file shipped from `app`/`lib` | `ruby script/verify-policy` | `policy` job | The lists are intentionally finite guardrails, not a parser or security sandbox for arbitrary Ruby |
-| Button/TextField strict locals, rendered semantics, relationships, escaping, and gallery route | `bundle exec rake test` | Compatibility matrix | Coverage is limited to written states and does not prove browser or assistive-technology behavior |
+| No unapproved runtime or forbidden renderer dependency, `app/components`, enumerated frontend manifest/build config, or frontend file beyond the one approved skin | `ruby script/verify-policy` | `policy` job | The lists are intentionally finite guardrails, not a parser or security sandbox for arbitrary Ruby |
+| Button/TextField strict locals, rendered semantics, relationships, escaping, presentation axes, and gallery route | `bundle exec rake test` | Compatibility matrix | Coverage is limited to written states and does not prove browser or assistive-technology behavior |
+| Default skin scope, token fallbacks, official contrast pairs, minimum target, focus/forced-colour rules, and recorded raw/gzip evidence | `bundle exec rake test` | Compatibility matrix | CSS assertions and colour math do not prove real-browser appearance or arbitrary consumer themes |
 | Bundled EN/RU namespace/key parity and Engine discovery | `bundle exec rake test` | Compatibility matrix | The namespaces are empty until the first owned string; translation behavior and quality are not yet claimed |
 | Required component-program files, one current family, and portable skill frontmatter | `bundle exec rake test` | Compatibility matrix | This protects workflow structure, not the quality or completeness of the planned catalog |
 | Ruby style | `bundle exec rake standard` | Compatibility matrix | Style is not architectural correctness |
-| Built gem installs, loads, includes both views and EN/RU locales, and contains no forbidden frontend or legacy component files | `bundle exec rake package_smoke` | `package` job | Loading does not prove every future packaged asset or locale works in a host |
+| Built gem installs, loads, includes views/locales/the one approved skin, and resolves a compiled digested stylesheet in a Propshaft host | `bundle exec rake package_smoke` | `package` job | Propshaft evidence does not claim Sprockets or pipeline-less delivery |
 
 `bundle exec rake` is the fast local loop: policy, rendered tests, and style. `bundle exec rake verify` adds installed-package verification. The Ruby/Rails matrix remains a CI and pre-release concern rather than an every-edit requirement.
 
@@ -26,8 +27,8 @@ These checks are requirements, not active coverage. Do not report them as passin
 | HTML and accessibility | HTML validation, relationship integrity, automated scanner for every gallery state |
 | Keyboard behavior | System tests for focus entry, movement, restoration, Escape, submission, and error recovery |
 | Skin boundary | Core works without a skin; one opt-in namespaced asset resolves in an installed host; default/brand-pair states pass contrast; official skin uses logical properties and passes non-color state, target-size, visible/not-obscured focus, forced-colors, text-spacing overrides, zoom/reflow, RTL/long text, and applicable reduced-motion checks |
-| Performance | Representative collection cases and raw/compressed asset budgets when a skin or behavior exists; the migration baseline is recorded separately |
-| Packaging | Expand installed-host proof when helpers or assets become public; views and EN/RU locales are covered today |
+| Performance | Representative collection cases and reviewed raw/compressed asset budgets after the first recorded skin baseline; the migration baseline is recorded separately |
+| Packaging | Expand installed-host proof when another asset type or delivery path becomes public; views, locales, and the Propshaft skin path are covered today |
 | Compatibility | Supported Ruby and Rails matrix exercises the packaged gem, not only the repository checkout |
 
 String and symbol literal IDS translation keys are checked today. Dynamically constructed keys require explicit tests and review because a static policy check cannot prove their namespace or completeness.

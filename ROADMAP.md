@@ -6,16 +6,16 @@
 - Strict-local Button and TextField partials proving leaf and FormBuilder-bound rendering.
 - Ordered component catalog and lightweight component-development workflow.
 - Deterministic architecture, package, compatibility, rendered-contract, and EN/RU parity gates.
-- Plain gallery with preview-local font/favicon styling and no shipped skin or JavaScript.
-- Accepted optional default-skin and small brand-colour direction; implementation remains planned.
+- Gallery explicitly loading the one shipped default skin through Propshaft, with no JavaScript.
+- Preview Button skin with secondary, primary, plain, danger, size/width axes, and paired brand colours.
 - Complete the planned HTML validation and automated accessibility controls.
 - Record manual keyboard and assistive-technology evidence before describing either component as stable.
 
 ## Alpha
 
 - Expand the current Text input family, then implement Select, following the catalog state matrix.
-- Deliver the opt-in default Button skin through the ordered [skin plan](docs/plans/default-skin.md), then return to deferred icon, grouping, and interaction slices when their own dependencies are approved.
-- Introduce proposed brand tokens only with the CSS, consumer evidence, and tests that make them real public API.
+- Apply the proven default-skin boundary to TextField, then Select, through the ordered [skin plan](docs/plans/default-skin.md).
+- Return to deferred Button icon, grouping, and interaction slices only when their semantic or behavior dependencies are approved.
 - Add a component only after documenting its consumer problem, semantic contract, accessibility evidence, and skin boundary.
 
 ## 1.0

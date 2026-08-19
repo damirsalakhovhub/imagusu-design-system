@@ -39,7 +39,7 @@ Build one complete vertical slice at a time. This skill orchestrates project rul
 - Implement only the accepted default skin until a real second visual case exists.
 - Keep it in the current gem as one self-contained, namespaced, browser-ready CSS asset that the host explicitly links. Never auto-load it.
 - Core behavior and rendered tests must continue to work without the stylesheet.
-- Add no Sass, npm, build step, JavaScript, external asset, generator, Ruby theme configuration, token registry, or new dependency.
+- Add no Sass, npm, build step, JavaScript, external asset, generator, Ruby theme configuration, token registry, or new runtime dependency. Propshaft is the only permitted development/test addition for proving the first skin in an installed host; remove that exception if the proof no longer needs it.
 - Expose only paired semantic foreground/background colours consumed by the current component. Initial proposed token names remain non-API until their CSS, tests, docs, and package evidence ship together.
 - Keep neutral, focus, interaction-state, spacing, radius, and typography values private until a consumer requires control. Apply a system font with `font-family`, not the `font` shorthand.
 - Target documented `.ids-*`, native state, and `data-state` hooks without global resets, host element rules, undocumented ancestry, or `!important`.

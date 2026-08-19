@@ -1,6 +1,9 @@
-<%# locals: (content:, type: :button, disabled: false, html_attributes: {}) %>
+<%# locals: (content:, type: :button, disabled: false, variant: :secondary, size: :medium, width: :auto, html_attributes: {}) %>
 <%
   normalized_type = type.respond_to?(:to_sym) ? type.to_sym : type
+  normalized_variant = variant.respond_to?(:to_sym) ? variant.to_sym : variant
+  normalized_size = size.respond_to?(:to_sym) ? size.to_sym : size
+  normalized_width = width.respond_to?(:to_sym) ? width.to_sym : width
 
   raise ArgumentError, "content must not be empty" if content.to_s.strip.empty?
   raise ArgumentError, "content must be plain text" if content.respond_to?(:html_safe?) && content.html_safe?
@@ -8,6 +11,15 @@
     raise ArgumentError, "type must be one of: button, submit"
   end
   raise ArgumentError, "disabled must be true or false" unless disabled == true || disabled == false
+  unless %i[secondary primary plain danger].include?(normalized_variant)
+    raise ArgumentError, "variant must be one of: secondary, primary, plain, danger"
+  end
+  unless %i[medium small large].include?(normalized_size)
+    raise ArgumentError, "size must be one of: medium, small, large"
+  end
+  unless %i[auto full].include?(normalized_width)
+    raise ArgumentError, "width must be one of: auto, full"
+  end
 
   attributes = if html_attributes.is_a?(Hash) && html_attributes.empty?
     {}
@@ -23,7 +35,12 @@
   unless unsupported_aria.empty?
     raise ArgumentError, "button does not support ARIA attributes: #{unsupported_aria.join(", ")}"
   end
-  attributes[:class] = "ids-button"
+  attributes[:class] = [
+    "ids-button",
+    ("ids-button--#{normalized_variant}" unless normalized_variant == :secondary),
+    ("ids-button--#{normalized_size}" unless normalized_size == :medium),
+    ("ids-button--#{normalized_width}" unless normalized_width == :auto)
+  ].compact.join(" ")
   attributes[:type] = normalized_type
   attributes[:disabled] = disabled
 %>

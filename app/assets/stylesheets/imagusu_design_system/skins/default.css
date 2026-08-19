@@ -1,0 +1,110 @@
+.ids-button {
+  --_ids-button-background: #f3f4f6;
+  --_ids-button-border: #6b7280;
+  --_ids-button-foreground: #111827;
+
+  align-items: center;
+  appearance: none;
+  background-color: var(--_ids-button-background);
+  border: 1px solid var(--_ids-button-border);
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+  color: var(--_ids-button-foreground);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  justify-content: center;
+  line-height: 1.25;
+  max-inline-size: 100%;
+  min-block-size: max(2.75rem, 44px);
+  min-inline-size: max(2.75rem, 44px);
+  overflow-wrap: anywhere;
+  padding-block: 0.625rem;
+  padding-inline: 1rem;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: middle;
+}
+
+.ids-button--primary {
+  --_ids-button-background: var(--ids-color-accent, #2563eb);
+  --_ids-button-border: var(--ids-color-accent, #2563eb);
+  --_ids-button-foreground: var(--ids-color-on-accent, #ffffff);
+}
+
+.ids-button--plain {
+  --_ids-button-background: transparent;
+  --_ids-button-border: transparent;
+  --_ids-button-foreground: #111827;
+}
+
+.ids-button--danger {
+  --_ids-button-background: var(--ids-color-danger, #b42318);
+  --_ids-button-border: var(--ids-color-danger, #b42318);
+  --_ids-button-foreground: var(--ids-color-on-danger, #ffffff);
+}
+
+.ids-button--small {
+  font-size: 0.875rem;
+  padding-block: 0.5rem;
+  padding-inline: 0.75rem;
+}
+
+.ids-button--large {
+  font-size: 1.125rem;
+  min-block-size: max(3.25rem, 52px);
+  min-inline-size: max(3.25rem, 52px);
+  padding-block: 0.75rem;
+  padding-inline: 1.25rem;
+}
+
+.ids-button--full {
+  inline-size: 100%;
+}
+
+@media (hover: hover) {
+  .ids-button:not(:disabled):hover {
+    box-shadow: inset 0 0 0 2px currentColor;
+  }
+}
+
+.ids-button:not(:disabled):active {
+  box-shadow: inset 0 0 0 3px currentColor;
+  transform: translateY(1px);
+}
+
+.ids-button:focus-visible {
+  box-shadow: 0 0 0 4px #111827;
+  outline: 2px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.ids-button:disabled {
+  --_ids-button-background: #e5e7eb;
+  --_ids-button-border: #6b7280;
+  --_ids-button-foreground: #4b5563;
+
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (forced-colors: active) {
+  .ids-button {
+    border-color: ButtonText;
+    forced-color-adjust: auto;
+  }
+
+  .ids-button:disabled {
+    border-color: GrayText;
+    color: GrayText;
+  }
+
+  .ids-button:focus-visible {
+    box-shadow: none;
+    outline: 3px solid Highlight;
+    outline-offset: 3px;
+  }
+}

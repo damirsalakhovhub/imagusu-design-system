@@ -29,6 +29,9 @@ module IDS
       lib/**/*.{css,less,sass,scss}
       lib/**/*.{cjs,js,jsx,mjs,ts,tsx}
     ].freeze
+    APPROVED_FRONTEND_FILES = %w[
+      app/assets/stylesheets/imagusu_design_system/skins/default.css
+    ].freeze
     I18N_KEY_PATTERNS = [
       /I18n\.(?:t|translate)\s*(?:\(\s*|\s+)["']([^"']+)/,
       /(?<![\w.])(?:t|translate)\s*(?:\(\s*|\s+)["']([^"']+)/
@@ -94,8 +97,17 @@ module IDS
 
       errors << "unapproved frontend manifests: #{manifests.join(", ")}" if manifests.any?
       errors << "unapproved frontend build configuration: #{configs.join(", ")}" if configs.any?
-      if shipped_frontend.any?
-        errors << "frontend files require an approved implementation gate: #{shipped_frontend.join(", ")}"
+      unapproved_frontend = shipped_frontend - APPROVED_FRONTEND_FILES
+      if unapproved_frontend.any?
+        errors << "frontend files require an approved implementation gate: #{unapproved_frontend.join(", ")}"
+      end
+
+      APPROVED_FRONTEND_FILES.each do |path|
+        next unless @root.join(path).file?
+
+        contents = @root.join(path).read
+        errors << "approved stylesheet cannot use @import: #{path}" if contents.match?(/@import\b/i)
+        errors << "approved stylesheet cannot use external or embedded URLs: #{path}" if contents.match?(/url\s*\(/i)
       end
     end
 

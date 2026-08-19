@@ -7,7 +7,41 @@ class Imagusu::DesignSystem::ButtonViewTest < ActionView::TestCase
     render_button(content: "Save")
 
     assert_select "button.ids-button[type='button']", text: "Save"
+    assert_select "button[class='ids-button']"
     assert_select "button[disabled]", count: 0
+  end
+
+  def test_supports_each_visual_variant_independently
+    render_button(content: "Primary", variant: :primary)
+    assert_select "button.ids-button.ids-button--primary[class='ids-button ids-button--primary']", text: "Primary"
+
+    render_button(content: "Plain", variant: "plain")
+    assert_select "button.ids-button.ids-button--plain[class='ids-button ids-button--plain']", text: "Plain"
+
+    render_button(content: "Danger", variant: :danger)
+    assert_select "button.ids-button.ids-button--danger[class='ids-button ids-button--danger']", text: "Danger"
+
+    render_button(content: "Secondary", variant: :secondary)
+    assert_select "button[class='ids-button']", text: "Secondary"
+  end
+
+  def test_supports_each_size_independently
+    render_button(content: "Small", size: :small)
+    assert_select "button.ids-button.ids-button--small[class='ids-button ids-button--small']", text: "Small"
+
+    render_button(content: "Large", size: "large")
+    assert_select "button.ids-button.ids-button--large[class='ids-button ids-button--large']", text: "Large"
+
+    render_button(content: "Medium", size: :medium)
+    assert_select "button[class='ids-button']", text: "Medium"
+  end
+
+  def test_supports_full_width_independently
+    render_button(content: "Full", width: :full)
+    assert_select "button.ids-button.ids-button--full[class='ids-button ids-button--full']", text: "Full"
+
+    render_button(content: "Auto", width: "auto")
+    assert_select "button[class='ids-button']", text: "Auto"
   end
 
   def test_supports_native_state_and_safe_attributes
@@ -48,6 +82,9 @@ class Imagusu::DesignSystem::ButtonViewTest < ActionView::TestCase
     assert_raises(ActionView::Template::Error) { render_button(content: "Save", type: :link) }
     assert_raises(ActionView::Template::Error) { render_button(content: "Reset", type: :reset) }
     assert_raises(ActionView::Template::Error) { render_button(content: "Save", disabled: nil) }
+    assert_raises(ActionView::Template::Error) { render_button(content: "Save", variant: :success) }
+    assert_raises(ActionView::Template::Error) { render_button(content: "Save", size: :extra_large) }
+    assert_raises(ActionView::Template::Error) { render_button(content: "Save", width: :fit) }
     assert_raises(ActionView::Template::Error) { render_button(content: "Save", html_attributes: {class: "override"}) }
     assert_raises(ActionView::Template::Error) { render_button(content: "Save", html_attributes: {title: "Extra"}) }
     assert_raises(ActionView::Template::Error) { render_button(content: "Save", html_attributes: {autofocus: true}) }

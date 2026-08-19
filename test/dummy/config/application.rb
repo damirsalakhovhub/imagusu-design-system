@@ -2,6 +2,8 @@
 
 require "rails"
 require "action_controller/railtie"
+require "propshaft"
+require "propshaft/railtie"
 require "imagusu/design_system"
 
 module Dummy

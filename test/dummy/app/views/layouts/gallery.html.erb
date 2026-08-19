@@ -5,13 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Imagusu Design System gallery</title>
     <link rel="icon" href="/ids-favicon.svg" type="image/svg+xml">
+    <%= stylesheet_link_tag "imagusu_design_system/skins/default", "data-turbo-track": "reload" %>
     <style>
       .ids-gallery {
+        background-color: #ffffff;
+        color: #111827;
         font-family: system-ui, sans-serif;
       }
 
-      .ids-gallery :where(button, input, select, textarea) {
+      .ids-gallery :where(input, select, textarea) {
         font-family: inherit;
+      }
+
+      .ids-gallery section + section {
+        margin-block-start: 2rem;
+      }
+
+      .ids-gallery-row {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-block: 0.75rem;
+      }
+
+      .ids-gallery-full {
+        max-inline-size: 32rem;
       }
     </style>
   </head>

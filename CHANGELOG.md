@@ -16,6 +16,7 @@ No IDS version has been published.
 - Applied the system font stack to the development gallery without shipping a skin.
 - Added a blue IDS favicon to the development gallery.
 - Accepted the optional default-skin and minimal paired brand-colour architecture, with a Button-first delivery plan.
+- Added the opt-in default Button skin with variants, sizes, full width, paired brand colours, and Propshaft package evidence.
 
 ### Changed
 

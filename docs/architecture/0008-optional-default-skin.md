@@ -1,6 +1,6 @@
 # ADR 0008: Optional default skin and brand colours
 
-Status: accepted; implementation pending
+Status: accepted; Button skin implemented at preview
 
 Supersedes [ADR 0002](0002-frontend-boundary.md) for CSS. JavaScript still requires a separate decision.
 
@@ -24,7 +24,7 @@ Core rendering, semantics, form submission, and accessibility relationships must
 
 ### Packaging
 
-The first skin is one self-contained, browser-ready CSS asset planned at:
+The first skin is one self-contained, browser-ready CSS asset at:
 
 ```text
 app/assets/stylesheets/imagusu_design_system/skins/default.css
@@ -36,7 +36,7 @@ The intended Rails opt-in is:
 <%= stylesheet_link_tag "imagusu_design_system/skins/default", "data-turbo-track": "reload" %>
 ```
 
-The path is a target, not public API until the asset ships with package and host evidence. The asset uses no Sass, PostCSS, Tailwind, npm, JavaScript, external font, external URL, generator, `@import`, or new runtime dependency. The host asset pipeline owns fingerprinting, caching, and delivery. Rails documents namespaced Engine assets and explicit stylesheet linking in the [Engine guide](https://guides.rubyonrails.org/engines.html#assets) and [Asset Pipeline guide](https://guides.rubyonrails.org/asset_pipeline.html).
+The path is public API and ships with package and installed-host evidence. The asset uses no Sass, PostCSS, Tailwind, npm, JavaScript, external font, external URL, generator, `@import`, or new runtime dependency. Propshaft is development/test-only evidence and is not a dependency of an application using IDS core. The host asset pipeline owns fingerprinting, caching, and delivery. Rails documents namespaced Engine assets and explicit stylesheet linking in the [Engine guide](https://guides.rubyonrails.org/engines.html#assets) and [Asset Pipeline guide](https://guides.rubyonrails.org/asset_pipeline.html).
 
 An additional skin stays outside the supported inventory until a real second visual use case exists. If one is later accepted, it is another self-contained opt-in stylesheet; a consumer loads exactly one official skin. A separate gem is justified only by a demonstrated independent owner, dependency, or release lifecycle.
 
@@ -47,7 +47,7 @@ An additional skin stays outside the supported inventory until a real second vis
 - **Brand theme** overrides only documented semantic colour pairs.
 - **Consumer** owns its chosen brand values, page background and layout, product content, and task-level accessibility.
 
-The initial proposed brand surface is:
+The initial public brand surface is:
 
 ```text
 --ids-color-accent
@@ -56,7 +56,7 @@ The initial proposed brand surface is:
 --ids-color-on-danger
 ```
 
-These names are proposed and non-public until the Button skin ships. The two values in each pair are treated together so the foreground remains readable on the surface. `success/on-success` is added only when a shipped component has a success state. Neutral, focus, hover, active, spacing, radius, and component-internal values remain private until a consumer demonstrates a need.
+The two values in each pair are treated together so the foreground remains readable on the surface. `success/on-success` is added only when a shipped component has a success state. Neutral, focus, hover, active, spacing, radius, and component-internal values remain private until a consumer demonstrates a need.
 
 The skin may derive hover and active colours internally only when it also supplies safe fallbacks and validates every resulting state. It does not claim arbitrary consumer overrides are accessible. CSS custom properties provide the native cascading mechanism for this boundary; no token compiler or theme registry is introduced. See the [CSS Custom Properties specification](https://www.w3.org/TR/css-variables-1/).
 
@@ -85,7 +85,7 @@ For the first Button slice:
 - long English/Russian/RTL text, user text-spacing overrides, 200% text resize, 400% zoom, and 320 CSS pixel reflow remain usable;
 - fixed text-control heights are avoided.
 
-Before `preview`, deterministic checks cover the no-skin path, the opt-in asset, package discovery in an installed Rails host, token overrides, documented states, and raw/compressed CSS bytes. The first implementation establishes a measured baseline rather than inventing a budget. Manual browser, zoom, forced-colours, keyboard, and assistive-technology evidence remains required before `stable` where applicable.
+At `preview`, deterministic checks cover the no-skin path, the opt-in asset, package discovery in an installed Rails host, token overrides, documented states, and raw/compressed CSS bytes. The first implementation establishes a measured baseline rather than inventing a budget. Manual browser, zoom, forced-colours, keyboard, and assistive-technology evidence remains required before `stable` where applicable.
 
 ## Rejected now
 
@@ -97,9 +97,9 @@ Before `preview`, deterministic checks cover the no-skin path, the opt-in asset,
 - a build tool or JavaScript for colour customization;
 - accessibility guarantees for arbitrary third-party CSS.
 
-## Implementation gate
+## Implemented gate
 
-This decision does not add CSS. The current policy and package smoke continue to reject frontend files. The first skin implementation must update those controls narrowly for the one approved asset, add the evidence in the [default skin plan](../plans/default-skin.md), and pass all five review roles.
+Policy and package smoke allow exactly the one approved stylesheet while continuing to reject other CSS, preprocessors, JavaScript, manifests, build configuration, imports, and asset URLs. The installed-package check compiles the stylesheet and resolves its digested logical path through a Propshaft host. Any wider frontend boundary still requires a new decision.
 
 ## Consequences
 

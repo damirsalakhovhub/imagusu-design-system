@@ -3,9 +3,37 @@
 
   <section aria-labelledby="buttons-heading">
     <h2 id="buttons-heading">Button</h2>
-    <%= render "imagusu/design_system/button", content: "Button" %>
-    <%= render "imagusu/design_system/button", content: "Submit", type: :submit %>
-    <%= render "imagusu/design_system/button", content: "Disabled", disabled: true %>
+
+    <h3>Variants</h3>
+    <div class="ids-gallery-row">
+      <%= render "imagusu/design_system/button", content: "Secondary" %>
+      <%= render "imagusu/design_system/button", content: "Primary", variant: :primary %>
+      <%= render "imagusu/design_system/button", content: "Plain", variant: :plain %>
+      <%= render "imagusu/design_system/button", content: "Danger", variant: :danger %>
+      <%= render "imagusu/design_system/button", content: "Disabled", disabled: true %>
+    </div>
+
+    <h3>Sizes</h3>
+    <div class="ids-gallery-row">
+      <%= render "imagusu/design_system/button", content: "Small", size: :small %>
+      <%= render "imagusu/design_system/button", content: "Medium" %>
+      <%= render "imagusu/design_system/button", content: "Large", size: :large %>
+    </div>
+
+    <h3>Form and width</h3>
+    <div class="ids-gallery-row">
+      <%= render "imagusu/design_system/button", content: "Submit", type: :submit, variant: :primary %>
+      <%= render "imagusu/design_system/button", content: "Очень длинное русское название действия" %>
+    </div>
+    <div class="ids-gallery-full">
+      <%= render "imagusu/design_system/button", content: "Full width", width: :full %>
+    </div>
+
+    <h3>Brand override</h3>
+    <div class="ids-gallery-row" style="--ids-color-accent: #0f766e; --ids-color-on-accent: #ffffff; --ids-color-danger: #9f1239; --ids-color-on-danger: #ffffff">
+      <%= render "imagusu/design_system/button", content: "Brand primary", variant: :primary %>
+      <%= render "imagusu/design_system/button", content: "Brand danger", variant: :danger %>
+    </div>
   </section>
 
   <section aria-labelledby="text-fields-heading">
