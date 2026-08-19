@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$repo_root"
+
+version="$(ruby -Ilib -e 'require "imagusu/design_system/version"; print Imagusu::DesignSystem::VERSION')"
+expected_tag="v$version"
+
+if [[ "${GITHUB_REF_NAME:-}" != "$expected_tag" ]]; then
+  echo "Release tag must be $expected_tag, got ${GITHUB_REF_NAME:-<unset>}" >&2
+  exit 1
+fi
+
+if [[ -n "${GITHUB_SHA:-}" ]] && ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+  echo "Release commit must be on origin/main" >&2
+  exit 1
+fi
