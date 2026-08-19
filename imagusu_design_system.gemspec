@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "railties", ">= 8.0", "< 8.2"
 
   spec.add_development_dependency "appraisal", "~> 2.5"
-  spec.add_development_dependency "minitest", "~> 5.25"
+  spec.add_development_dependency "minitest", "~> 6.0"
   spec.add_development_dependency "propshaft", "~> 1.2"
   spec.add_development_dependency "rails", ">= 8.0", "< 8.2"
   spec.add_development_dependency "rake", "~> 13.2"

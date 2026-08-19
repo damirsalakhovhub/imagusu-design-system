@@ -5,5 +5,5 @@ source "https://rubygems.org"
 gemspec
 
 group :development do
-  gem "puma", "~> 7.0"
+  gem "puma", "~> 8.0"
 end
