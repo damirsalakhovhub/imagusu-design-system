@@ -1,6 +1,6 @@
 # ADR 0002: Frontend boundary
 
-Status: accepted
+Status: superseded by [ADR 0008](0008-optional-default-skin.md) for CSS; JavaScript decision remains active
 
 ## Decision
 

@@ -20,6 +20,7 @@ Do not write code during review. Do not inspect `/Users/damirsalakhov/imagusu`.
 - Helpers remain short and locally understandable.
 - Test setup is smaller than the behavior it protects.
 - Documentation uses one canonical path instead of several equivalent recipes.
+- Skin work keeps one default opt-in stylesheet, introduces only semantic colour pairs used by a shipped component, and does not promise additional skins before a second case exists.
 - Removal of IDS leaves no generators, patches, host configuration, or build artifacts behind.
 
 ## Dependency review
@@ -57,6 +58,7 @@ Block when a change:
 - introduces two supported ways to perform the same public task;
 - turns a private detail into public API without a consumer;
 - couples core behavior to a particular skin or build pipeline;
+- introduces a token registry, palette graph, theme DSL, automatic loader, or alternate skin for a hypothetical consumer;
 - leaves obsolete compatibility code after a deliberate breaking migration;
 - is substantially harder to read than the behavior requires.
 

@@ -28,6 +28,8 @@ Do not write code during review. Do not inspect `/Users/damirsalakhov/imagusu`.
 - Public DOM order, semantics, class hooks, data hooks, tokens, configuration, and assets are documented and versioned deliberately.
 - Internal helpers and POROs are cohesive and private unless consumers genuinely need them.
 - Core and skin dependencies point one way: a skin depends on the core contract; core never depends on a skin.
+- The default skin is an explicit opt-in asset in the same gem, never injected; core remains useful when it is omitted.
+- A host loads exactly one official skin, while a small brand theme changes documented semantic colour pairs rather than renderer semantics.
 - Installation and removal do not mutate the host application unexpectedly.
 - Breaking changes include migration notes and the correct pre-1.0 minor-version treatment.
 

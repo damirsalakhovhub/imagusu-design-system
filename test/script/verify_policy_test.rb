@@ -62,32 +62,32 @@ class VerifyPolicyTest < Minitest::Test
     assert_includes verifier.errors, "unapproved frontend manifests: package.json"
   end
 
-  def test_rejects_javascript_before_an_architecture_decision
+  def test_rejects_javascript_without_an_implementation_gate
     write("app/javascript/controllers/menu_controller.js", "export default class {}\n")
 
     assert_includes verifier.errors,
-      "frontend files cannot ship before an architecture decision: app/javascript/controllers/menu_controller.js"
+      "frontend files require an approved implementation gate: app/javascript/controllers/menu_controller.js"
   end
 
-  def test_rejects_plain_css_before_an_architecture_decision
+  def test_rejects_plain_css_without_an_implementation_gate
     write("app/assets/stylesheets/ids.css", ".ids-button {}\n")
 
     assert_includes verifier.errors,
-      "frontend files cannot ship before an architecture decision: app/assets/stylesheets/ids.css"
+      "frontend files require an approved implementation gate: app/assets/stylesheets/ids.css"
   end
 
-  def test_rejects_asset_pipeline_javascript_before_an_architecture_decision
+  def test_rejects_asset_pipeline_javascript_without_an_implementation_gate
     write("app/assets/javascripts/ids.js", "export {}\n")
 
     assert_includes verifier.errors,
-      "frontend files cannot ship before an architecture decision: app/assets/javascripts/ids.js"
+      "frontend files require an approved implementation gate: app/assets/javascripts/ids.js"
   end
 
   def test_rejects_frontend_files_shipped_from_lib
     write("lib/imagusu/design_system/ids.css", ".ids-button {}\n")
 
     assert_includes verifier.errors,
-      "frontend files cannot ship before an architecture decision: lib/imagusu/design_system/ids.css"
+      "frontend files require an approved implementation gate: lib/imagusu/design_system/ids.css"
   end
 
   def test_rejects_a_new_legacy_component_file

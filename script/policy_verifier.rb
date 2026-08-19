@@ -95,7 +95,7 @@ module IDS
       errors << "unapproved frontend manifests: #{manifests.join(", ")}" if manifests.any?
       errors << "unapproved frontend build configuration: #{configs.join(", ")}" if configs.any?
       if shipped_frontend.any?
-        errors << "frontend files cannot ship before an architecture decision: #{shipped_frontend.join(", ")}"
+        errors << "frontend files require an approved implementation gate: #{shipped_frontend.join(", ")}"
       end
     end
 

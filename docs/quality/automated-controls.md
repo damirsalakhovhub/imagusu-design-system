@@ -25,7 +25,7 @@ These checks are requirements, not active coverage. Do not report them as passin
 | Direction and expansion | RTL and long-string pseudo-locales; no forced LTR direction; stable DOM and focus order |
 | HTML and accessibility | HTML validation, relationship integrity, automated scanner for every gallery state |
 | Keyboard behavior | System tests for focus entry, movement, restoration, Escape, submission, and error recovery |
-| Skin boundary | Core works without a skin; official skin uses logical properties and passes text/non-text contrast, non-color state, target-size, visible/not-obscured focus, forced-colors, zoom/reflow, and applicable reduced-motion checks |
+| Skin boundary | Core works without a skin; one opt-in namespaced asset resolves in an installed host; default/brand-pair states pass contrast; official skin uses logical properties and passes non-color state, target-size, visible/not-obscured focus, forced-colors, text-spacing overrides, zoom/reflow, RTL/long text, and applicable reduced-motion checks |
 | Performance | Representative collection cases and raw/compressed asset budgets when a skin or behavior exists; the migration baseline is recorded separately |
 | Packaging | Expand installed-host proof when helpers or assets become public; views and EN/RU locales are covered today |
 | Compatibility | Supported Ruby and Rails matrix exercises the packaged gem, not only the repository checkout |

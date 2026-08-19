@@ -10,7 +10,9 @@ class ComponentProgramTest < ActiveSupport::TestCase
   REQUIRED_PATHS = %w[
     AGENTS.md
     docs/architecture/0007-component-program.md
+    docs/architecture/0008-optional-default-skin.md
     docs/components/catalog.md
+    docs/plans/default-skin.md
     docs/process/component-development.md
     docs/quality/component-testing.md
     .agents/skills/ids-component-program/SKILL.md

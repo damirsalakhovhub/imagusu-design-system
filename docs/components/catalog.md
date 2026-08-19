@@ -20,7 +20,8 @@ This is the ordered, product-neutral IDS program. It is a working inventory, not
 | Risk-based subagent team | ✅ | [`AGENTS.md`](../../AGENTS.md) and [`agents/roles`](../../agents/roles) |
 | Repo-local component workflow skill | ✅ | [`ids-component-program`](../../.agents/skills/ids-component-program/SKILL.md) |
 | English/Russian owned-string parity | ✅ | [Localization ADR](../architecture/0005-localization.md) |
-| Official skin and tokens | ☐ | Starts with the Button family after its semantic contract |
+| Optional skin and brand-colour architecture | ✅ | [ADR 0008](../architecture/0008-optional-default-skin.md) |
+| Official default skin and public tokens | ☐ | [Button-first delivery plan](../plans/default-skin.md); no CSS ships yet |
 | Browser/HTML/a11y release harness | ☐ | Added with the first skin or interactive behavior, not before |
 
 ## Ordered families
@@ -66,7 +67,7 @@ Product shells such as application headers, sidebars, page layouts, and domain-s
 | Component | Brief/API | Core | Rendered tests | Gallery | Owned EN/RU | Skin | Stable evidence | Status |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Button (text action) | ✅ | ✅ | ✅ | ✅ | — consumer label | — deferred | ☐ | preview |
-| Button visual variants/sizes/width | ◐ ADR scope | ☐ skin dependency | ☐ | ☐ | — | ☐ | ☐ | planned |
+| Button visual variants/sizes/width | ✅ ADR/plan | ☐ skin dependency | ☐ | ☐ | — | ☐ | ☐ | planned |
 | LinkButton | ◐ needs skin/use case | ☐ | ☐ | ☐ | — consumer label | ☐ | ☐ | planned |
 | IconButton | ◐ needs trusted icon | ☐ | ☐ | ☐ | ☐ where IDS owns a name | ☐ | ☐ | planned |
 | ButtonGroup | ◐ needs grouping case | ☐ | ☐ | ☐ | — consumer label | ☐ | ☐ | planned |

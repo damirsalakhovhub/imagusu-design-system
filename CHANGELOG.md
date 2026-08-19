@@ -15,6 +15,7 @@ No IDS version has been published.
 - Completed the no-skin text Button milestone with a smaller action/submit and descriptive-ARIA contract.
 - Applied the system font stack to the development gallery without shipping a skin.
 - Added a blue IDS favicon to the development gallery.
+- Accepted the optional default-skin and minimal paired brand-colour architecture, with a Button-first delivery plan.
 
 ### Changed
 

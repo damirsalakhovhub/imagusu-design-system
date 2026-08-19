@@ -30,6 +30,8 @@ An official skin owns:
 - contrast, visible focus, target size, reflow, forced-color behavior, and reduced motion;
 - visual distinction of states without relying on color alone.
 
+A bundled default theme is IDS evidence. A consumer that overrides a documented foreground/background colour pair becomes the theme author: IDS provides preview and checking guidance, but does not claim arbitrary brand values or host backgrounds remain accessible. Base colours without a paired readable foreground are not an acceptable public customization contract.
+
 The consuming application owns page context, content quality, heading hierarchy outside the component, and end-to-end task accessibility.
 
 ## Required checks
@@ -44,6 +46,7 @@ The consuming application owns page context, content quality, heading hierarchy 
 - Core content remains available without CSS; core tasks have a no-JavaScript path or an explicit accessible fallback.
 - Official skins work at 200% text resize, 400% zoom, 320 CSS px reflow, forced colors, and reduced motion where applicable.
 - Pointer targets, text contrast, non-text contrast, focus visibility, and focus-not-obscured requirements meet applicable WCAG 2.2 AA criteria.
+- Official derived hover/active colours are tested in every state; focus and forced-colour treatments do not derive from brand colours.
 
 ## Evidence ladder
 

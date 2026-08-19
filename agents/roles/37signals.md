@@ -45,6 +45,7 @@ Never write “DHH would choose”, “37signals requires”, or “Rails way”
 - Code is readable locally without knowledge of an internal framework.
 - A dependency provides concrete net value after update, security, compatibility, and removal costs.
 - Product-specific 37signals choices are not copied into a general design-system contract.
+- A skin stays ordinary namespaced CSS, explicitly linked through Rails, rather than becoming a configuration framework or frontend toolchain.
 - Claims in documentation distinguish evidence from IDS positioning.
 
 ## Blockers

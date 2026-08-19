@@ -23,6 +23,6 @@ if grep -q "app/components/" <<<"$package_files"; then
   exit 1
 fi
 if grep -Eq '\.(css|less|sass|scss|cjs|js|jsx|mjs|ts|tsx)$' <<<"$package_files"; then
-  echo "built gem contains frontend files before the frontend-boundary ADR allows them" >&2
+  echo "built gem contains frontend files before an approved implementation gate allows them" >&2
   exit 1
 fi

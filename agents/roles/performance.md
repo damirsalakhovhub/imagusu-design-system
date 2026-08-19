@@ -19,6 +19,8 @@ Do not write code during review. Do not inspect `/Users/damirsalakhov/imagusu`.
 - Code avoids forced synchronous layout, redundant DOM traversal, and per-item work that can be delegated or rendered on the server.
 - Collections use Rails collection rendering and caching when measurements show a benefit.
 - Media dimensions and component state changes avoid layout shifts.
+- An official skin is one self-contained, opt-in, namespaced plain-CSS asset with no imports or external URLs; record raw/compressed bytes and the added request.
+- The host asset pipeline owns fingerprinting and caching. Do not add a runtime loader, build step, or second skin without measured need.
 - Browser APIs match the documented support matrix or have a clear fallback.
 - Reduced-motion, touch, keyboard, and zoom behavior are coordinated with the accessibility review.
 

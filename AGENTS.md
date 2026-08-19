@@ -4,7 +4,7 @@ Instructions for agents working on Imagusu Design System (IDS).
 
 ## Mission
 
-Build a small, Rails-native, skin-agnostic design-system foundation. IDS owns semantic HTML, accessibility contracts, stable rendering APIs, progressive enhancement, tests, and the boundary where a separate skin supplies tokens and visual styles.
+Build a small, Rails-native, skin-agnostic design-system foundation. IDS owns semantic HTML, accessibility contracts, stable rendering APIs, progressive enhancement, tests, and the boundary where an optional skin supplies tokens and visual styles.
 
 Use Rails and browser primitives directly. Add an abstraction or dependency only when a demonstrated need cannot be met clearly without it.
 
@@ -14,7 +14,7 @@ Use Rails and browser primitives directly. Add an abstraction or dependency only
 - Never read, compare, import, adapt, or copy anything from `/Users/damirsalakhov/imagusu`.
 - Do not infer what DHH or 37signals would approve. Separate published guidance, observed public code, IDS decisions, and inference.
 - Do not add a component framework, internal rendering DSL, slots framework, build step, or runtime dependency without a superseding architecture decision and measured justification.
-- Version 0.1 ships no CSS or JavaScript. Adding either requires a superseding frontend-boundary ADR with a concrete consumer need.
+- Core must remain useful without CSS or JavaScript. The first CSS may only implement ADR 0008 as one explicit opt-in, namespaced, plain-CSS skin and requires all-five review plus narrow policy/package changes in the same slice. JavaScript still requires a separate architecture decision and concrete consumer need.
 - ViewComponent, Lookbook, `app/components/**`, a component base class, and compatibility renderers are prohibited by ADR 0006. Public rendering uses namespaced strict-local partials under `app/views/imagusu/design_system/`.
 
 ## Ownership model
@@ -46,7 +46,7 @@ Other work uses the smallest relevant set below. Documentation typos, test refac
 | Public API or Engine integration | Architecture; add the role whose contract changes |
 | Other architecture decision | Architecture, 37signals; add the role whose boundary changes |
 | HTML, form, ARIA, focus, or interaction | Accessibility; add Architecture when public markup or locals change |
-| Runtime dependency, build step, JavaScript, or frontend boundary | All five |
+| First skin/CSS, runtime dependency, build step, JavaScript, or frontend boundary | All five |
 | Tests or gallery only | No review unless public coverage or behavior changes |
 | EN/RU translation with unchanged meaning | Automated parity only; add Architecture and Accessibility if meaning or the public contract changes |
 | Documentation | No review unless it changes a public contract or makes an evidence claim |
