@@ -4,8 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Imagusu Design System gallery</title>
+    <style>
+      .ids-gallery {
+        font-family: system-ui, sans-serif;
+      }
+
+      .ids-gallery :where(button, input, select, textarea) {
+        font: inherit;
+      }
+    </style>
   </head>
-  <body>
+  <body class="ids-gallery">
     <%= yield %>
   </body>
 </html>

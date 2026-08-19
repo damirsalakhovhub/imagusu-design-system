@@ -13,6 +13,7 @@ No IDS version has been published.
 - Plain component gallery, accessibility contracts, localization boundary, and deterministic architecture policy.
 - Ordered component program, proportional testing guide, repo-local workflow skill, and packaged English/Russian locale namespaces.
 - Completed the no-skin text Button milestone with a smaller action/submit and descriptive-ARIA contract.
+- Applied the system font stack to the development gallery without shipping a skin.
 
 ### Changed
 

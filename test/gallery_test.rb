@@ -8,6 +8,9 @@ class GalleryTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "html[lang='en']"
+    assert_select "body.ids-gallery"
+    assert_includes response.body, "font-family: system-ui, sans-serif"
+    assert_includes response.body, ":where(button, input, select, textarea)"
     assert_select "title", text: "Imagusu Design System gallery"
     assert_select "main h1", text: "Imagusu Design System gallery"
     assert_select "button.ids-button[type='button']", text: "Button"
