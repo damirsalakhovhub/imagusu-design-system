@@ -11,6 +11,8 @@ class GalleryTest < ActionDispatch::IntegrationTest
     assert_select "body.ids-gallery"
     assert_includes response.body, "font-family: system-ui, sans-serif"
     assert_includes response.body, ":where(button, input, select, textarea)"
+    assert_includes response.body, "font-family: inherit"
+    refute_includes response.body, "font: inherit"
     assert_select "title", text: "Imagusu Design System gallery"
     assert_select "link[rel='icon'][href='/ids-favicon.svg'][type='image/svg+xml']"
     assert_select "main h1", text: "Imagusu Design System gallery"
