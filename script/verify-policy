@@ -1,0 +1,7 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require_relative "policy_verifier"
+
+root = ARGV.first || File.expand_path("..", __dir__)
+exit IDS::PolicyVerifier.new(root).run ? 0 : 1
